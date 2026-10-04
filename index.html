@@ -38,6 +38,7 @@
   p { margin: 0 0 12px; }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
+  .tool { color: var(--accent); font-size: 13px; margin: -6px 0 10px; }
   footer { margin-top: 28px; color: var(--muted); font-size: 13px; }
 </style>
 </head>
@@ -45,42 +46,96 @@
 <main>
   <header>
     <h1>AI 게임 제작 사례</h1>
-    <p>인스타그램과 스레드 공개 글에서 확인한 사례입니다. 로그인해야 보이는 글은 넣지 않습니다.</p>
-    <div class="meta">마지막 갱신 2026-10-04 · 5건 · 모두 스레드</div>
+    <p>인스타그램과 스레드 공개 글에서 확인한 사례입니다. 로그인해야 보이는 글은 넣지 않습니다. 최근 글부터 정렬했습니다.</p>
+    <div class="meta">마지막 갱신 2026-10-05 · 12건 · 스레드 11건, 인스타그램 1건</div>
   </header>
   <ol>
     <li>
+      <h2>Vincent Chiang, Project DICE</h2>
+      <p class="sub">스레드 · @vincent10061006 · 글 대략 2026-09-28, 2026-09-30</p>
+      <p class="tool">AI 도구 · GPT-6 Astra</p>
+      <p>게임 개발 경험 없이 혼자 만든 택틱스로, 23일 차에 캐릭터, 보스, 스킬, 이펙트, 장비, 소환, 3-5장 스토리까지 갔습니다. 개별 글 주소가 공개 페이지에 없어 프로필을 연결합니다.</p>
+      <a href="https://www.threads.com/@vincent10061006">프로필 보기</a>
+    </li>
+    <li>
+      <h2>프롬프트 세 문단으로 만든 3D 게임</h2>
+      <p class="sub">스레드 · @gpt_haterz가 소개 · 원작자는 글에 이름 없음 · 글 2026-09-08</p>
+      <p class="tool">AI 도구 · Claude Code</p>
+      <p>워커 서브에이전트 팀과 코드를 혹독하게 검사하는 별도 AI 리뷰어를 세워 고치고 다시 검사하는 루프를 자동으로 돌렸고, 약 5만 5천 줄짜리 3D 게임이 나왔다고 합니다.</p>
+      <a href="https://www.threads.com/@gpt_haterz/post/DdAvXi7EveY">원문 보기</a>
+    </li>
+    <li>
+      <h2>Simon Willison, 라쿤 하이스트 재현</h2>
+      <p class="sub">스레드 · @soundslikeclickclack이 정리 · 원 실험은 Simon Willison · 글 2026-08-18</p>
+      <p class="tool">AI 도구 · Claude Fable 5(Claude Code), GPT-5.6 Sol Ultra(Codex)</p>
+      <p>2022년 스크린샷 두 장과 프롬프트 하나로 같은 게임을 다시 만들게 했더니, Claude Code는 3D 브라우저 게임을, Codex는 동료를 쌓아 보물을 훔치는 스쿼드 메커닉을 넣었습니다.</p>
+      <a href="https://www.threads.com/@soundslikeclickclack/post/DcK-emeIAiT">원문 보기</a>
+    </li>
+    <li>
+      <h2>9개월 차이로 다시 만든 도시 건설 게임</h2>
+      <p class="sub">인스타그램 · @girsta가 소개 · 개발자는 글에 이름 없음 · 글 2026-08-16</p>
+      <p class="tool">AI 도구 · Cursor Composer 1, Grok 4.6</p>
+      <p>Cursor와 xAI에서 일한 개발자가 같은 취미 게임을 2025년 11월 Composer 1과 2026년 8월 Grok 4.6 루프형 에이전트로 각각 만들어 나란히 비교했습니다.</p>
+      <a href="https://www.instagram.com/reel/DcHGL2YBXj4/">원문 보기</a>
+    </li>
+    <li>
       <h2>Lolomouse, 삼국지 카드 로그라이크</h2>
       <p class="sub">스레드 · @lolomousegame · 글 2026-08-13</p>
+      <p class="tool">AI 도구 · Codex</p>
       <p>코딩 경험 없이 Codex만으로 삼국지 카드 오토배틀 로그라이크를 3개월간 매일 고쳤고, 그날 스팀 무료 데모를 알렸습니다.</p>
       <a href="https://www.threads.com/@lolomousegame/post/Db_B1bIF2z6">원문 보기</a>
     </li>
     <li>
+      <h2>Andrew.Kim, Text23d</h2>
+      <p class="sub">스레드 · @andrew_kim_ai · 글 2026-08-11</p>
+      <p class="tool">AI 도구 · LLM(모델명은 글에 없음)</p>
+      <p>텍스트 한 줄로 3D 오브젝트와 맵을 만들어 바로 FPS로 돌아다닐 수 있게 했습니다. LLM이 맵 구조를 설계하고 소품을 배치하며, 이 맵으로 간단한 갓어스류 게임도 만들었습니다.</p>
+      <a href="https://www.threads.com/@andrew_kim_ai/post/Db5BwyuitLN">원문 보기</a>
+    </li>
+    <li>
+      <h2>Meng To, Vesperfall 스킬 팩</h2>
+      <p class="sub">스레드 · @sliven0722가 공유 · 작성자는 Meng To · 글 2026-07-25</p>
+      <p class="tool">AI 도구 · Codex, Claude Code, Cursor</p>
+      <p>Three.js 아이소메트릭 액션 RPG Vesperfall을 만들 때 쓴 에이전트 스킬을 공개했습니다. 카메라, 적 AI, 전투, 이펙트, 출시까지 다룹니다.</p>
+      <a href="https://www.threads.com/@sliven0722/post/DbOBKOPCe8X">원문 보기</a>
+    </li>
+    <li>
       <h2>Crystal Chang, 인터랙티브 오디세이</h2>
       <p class="sub">스레드 · @crystalchang323 · 글 2026-07-24</p>
+      <p class="tool">AI 도구 · GPT, Codex</p>
       <p>14개 섬을 항해하는 오디세이입니다. 엔지니어가 아니며, GPT로 기획과 완료 기준을 쓰고 Codex가 약 8시간 혼자 구현했습니다.</p>
       <a href="https://www.threads.com/@crystalchang323/post/DbKuu7lk7EP">원문 보기</a>
     </li>
     <li>
-      <h2>Meng To, Vesperfall 스킬 팩</h2>
-      <p class="sub">스레드 · @sliven0722가 공유 · 글 2026-07-25 · 작성자는 Meng To</p>
-      <p>Three.js 아이소메트릭 액션 RPG Vesperfall을 만들 때 쓴 에이전트 스킬을 공개했습니다. 카메라, 적 AI, 전투, 이펙트, 출시까지 Codex, Claude Code, Cursor용입니다.</p>
-      <a href="https://www.threads.com/@sliven0722/post/DbOBKOPCe8X">원문 보기</a>
+      <h2>Rift Salvage, 45분 만의 탑다운 슈팅</h2>
+      <p class="sub">스레드 · @passionplus_ai가 소개 · 시연한 유튜버는 글에 이름 없음 · 글 2026-05-12</p>
+      <p class="tool">AI 도구 · Codex, GPT image gen 2</p>
+      <p>Plan 모드에서 빌드 성공과 Playwright 시나리오 통과 같은 완료 기준을 먼저 정해 두고 Goals 두 번으로 완성했습니다. 드론, 적, 보스, 배경, UI 에셋 11종도 Codex가 직접 만들었습니다.</p>
+      <a href="https://www.threads.com/@passionplus_ai/post/DYOez1RgWtP">원문 보기</a>
     </li>
     <li>
-      <h2>Vincent Chiang, Project DICE</h2>
-      <p class="sub">스레드 · @vincent10061006 · 글 대략 2026-09-28, 2026-09-30</p>
-      <p>게임 개발 경험 없이 GPT-6 Astra로 혼자 만든 택틱스입니다. 23일 차에 캐릭터, 보스, 스킬, 이펙트, 장비, 소환, 3-5장 스토리까지 갔습니다. 개별 글 주소는 공개 페이지에 없어서 프로필만 연결합니다.</p>
-      <a href="https://www.threads.com/@vincent10061006">프로필 보기</a>
+      <h2>Dilmer, VR/MR 농구 게임</h2>
+      <p class="sub">스레드 · @dilmerv · 글 2026-05-04</p>
+      <p class="tool">AI 도구 · Unity AI Assistant, Claude Agent, Claude Code CLI</p>
+      <p>Unity 안의 AI 도우미와 외부 Claude Code를 함께 쓰고, Meta XR Simulator로 반복 테스트하며 VR/MR 농구 게임을 만들었습니다.</p>
+      <a href="https://www.threads.com/@dilmerv/post/DX4aZ5FFAWy">원문 보기</a>
     </li>
     <li>
-      <h2>Simon Willison, 라쿤 하이스트 재현</h2>
-      <p class="sub">스레드 · @soundslikeclickclack이 정리 · 글 2026-08-18 · 원 실험은 Simon Willison</p>
-      <p>2022년 스크린샷 두 장과 프롬프트 하나로 라쿤 하이스트를 다시 만들었습니다. Claude Code는 3D 브라우저 게임을, Codex는 동료를 쌓아 보물을 훔치는 스쿼드 메커닉을 넣었습니다.</p>
-      <a href="https://www.threads.com/@soundslikeclickclack/post/DcK-emeIAiT">원문 보기</a>
+      <h2>Peter Yang, 아이와 만드는 레트로 픽셀 게임</h2>
+      <p class="sub">스레드 · @petergyang · 글 2026-01-22</p>
+      <p class="tool">AI 도구 · Claude Code</p>
+      <p>일곱 살 아이와 20분 만에 레트로 픽셀 게임을 만드는 튜토리얼입니다. AskUserQuestion으로 기획서를 잡고 GitHub와 Vercel로 배포합니다.</p>
+      <a href="https://www.threads.com/@petergyang/post/DTxxhxhlNzc">원문 보기</a>
+    </li>
+    <li>
+      <h2>Mani, 네오지오 게임 엔진</h2>
+      <p class="sub">스레드 · @manicakes1 · 글 2026-01-02 (한국 시간 1월 3일)</p>
+      <p class="tool">AI 도구 · Claude Code</p>
+      <p>1990년 아케이드 하드웨어인 네오지오용 게임 엔진을 3일 만에 만들었습니다. 물리, 어셈블리로 짠 Z80 오디오 드라이버, 패럴랙스 스크롤, 에셋 파이프라인까지 들어갔습니다.</p>
+      <a href="https://www.threads.com/@manicakes1/post/DTBF2m1Dwop">원문 보기</a>
     </li>
   </ol>
-  <footer>평일 아침마다 새 사례만 이 페이지에 더합니다. 인스타그램 본문은 로그인 벽 때문에 아직 확인하지 못했고, 한국어 글도 이번 목록에는 없습니다.</footer>
+  <footer>평일 아침마다 새 사례만 이 페이지에 더합니다. 다른 사람의 작업을 소개한 글은 소개한 계정과 원작자를 함께 적었습니다.</footer>
 </main>
 </body>
 </html>
