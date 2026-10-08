@@ -3,237 +3,597 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI 게임 제작 사례</title>
+<title>AI 게임 제작 사례집</title>
 <style>
   :root {
-    --bg: #12141a;
-    --card: #1c2030;
-    --line: #2c3348;
-    --text: #e8e6e1;
-    --muted: #9aa3b5;
-    --accent: #e8a54b;
+    --paper: #f3ecdf;
+    --card: #fffaf3;
+    --ink: #2b241c;
+    --muted: #6f6456;
+    --line: #e4d5c2;
+    --accent: #8c3e22;
+    --chip: #f6e6d4;
+    --chip-on: #2b241c;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
-    font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.55;
+    color: var(--ink);
+    background:
+      radial-gradient(900px 420px at 50% -80px, #fff8ee, transparent 70%),
+      var(--paper);
+    font-family: "Nanum Myeongjo", "Apple SD Gothic Neo", "Noto Serif CJK KR", "Noto Sans KR", "Malgun Gothic", serif;
+    line-height: 1.7;
   }
-  main { max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }
-  header h1 { font-size: 28px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.02em; }
-  header p { margin: 0; color: var(--muted); }
-  .meta { margin-top: 18px; color: var(--accent); font-size: 14px; }
-  ol { list-style: none; padding: 0; margin: 32px 0 0; }
-  li {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 20px 22px;
-    margin-bottom: 14px;
+  main { max-width: 980px; margin: 0 auto; padding: 48px 20px 96px; }
+  header h1 {
+    margin: 0;
+    font-size: clamp(32px, 5vw, 46px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
   }
-  h2 { font-size: 18px; margin: 0 0 6px; }
-  .sub { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
-  p { margin: 0 0 12px; }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  .tool { color: var(--accent); font-size: 13px; margin: -6px 0 10px; }
-  footer { margin-top: 28px; color: var(--muted); font-size: 13px; }
+  .intro { margin: 12px 0 0; max-width: 40em; font-size: 17px; }
+  .meta { margin: 16px 0 0; color: var(--accent); font-size: 14px; }
+  .tools {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 22px 0 8px; align-items: center;
+  }
+  button, .search {
+    font: inherit; color: var(--ink);
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 12px; cursor: pointer;
+  }
+  button[aria-pressed="true"] { background: var(--chip-on); color: #fffaf3; border-color: var(--chip-on); }
+  .search { border-radius: 12px; min-width: min(100%, 220px); padding: 8px 12px; }
+  .case {
+    display: grid; grid-template-columns: 1fr;
+    gap: 18px; background: var(--card);
+    border: 1px solid var(--line); border-radius: 22px;
+    padding: 22px; margin: 16px 0;
+    box-shadow: 0 10px 30px rgba(80, 50, 20, 0.04);
+  }
+  .num { margin: 0; color: var(--accent); font-size: 13px; letter-spacing: 0.12em; }
+  h2 { margin: 2px 0 6px; font-size: 22px; line-height: 1.35; letter-spacing: -0.02em; }
+  .sub, .tool { margin: 0 0 8px; color: var(--muted); font-size: 14px; }
+  .tool { color: var(--accent); }
+  .desc { margin: 0 0 10px; }
+  .take { margin: 0 0 12px; background: var(--chip); border-radius: 12px; padding: 10px 12px; }
+  .take span { display: block; font-size: 12px; letter-spacing: 0.08em; color: var(--accent); }
+  a { color: var(--accent); }
+  .more { margin: 0; }
+  .shot {
+    display: block; border-radius: 18px; overflow: hidden;
+    border: 1px solid var(--line); background: #221c17;
+    align-self: start;
+  }
+  .shot img { display: block; width: 100%; height: auto; max-height: 640px; object-fit: cover; object-position: top; }
+  .placeholder {
+    min-height: 220px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 8px;
+    text-align: center; text-decoration: none; color: #f6efe4;
+    padding: 24px; background:
+      repeating-linear-gradient(-45deg, #3a3128, #3a3128 8px, #2b241c 8px, #2b241c 16px);
+  }
+  footer { margin-top: 28px; color: var(--muted); font-size: 14px; }
+  @media (min-width: 860px) {
+    .case { grid-template-columns: 1fr 250px; align-items: start; }
+    .shot { position: sticky; top: 16px; }
+  }
 </style>
 </head>
 <body>
 <main>
   <header>
-    <h1>AI 게임 제작 사례</h1>
-    <p>인스타그램과 스레드 공개 글에서 확인한 사례입니다. 로그인해야 보이는 글은 넣지 않습니다. 최근 글부터 정렬했습니다.</p>
-    <div class="meta">마지막 갱신 2026-10-08 · 26건 · 스레드 22건, 인스타그램 4건</div>
+    <h1>AI 게임 제작 사례집</h1>
+    <p class="intro">인스타그램, 스레드, X의 공개 글에서 확인한 AI 게임 제작 사례입니다. 로그인해야 보이는 글은 넣지 않고, 최근 글부터 정렬했습니다.</p>
+    <p class="meta">마지막 갱신 2026-10-09 · 36건 · 스레드 23 · 인스타그램 4 · X 9</p>
   </header>
-  <ol>
-    <li>
-      <h2>Vincent Chiang, Project DICE</h2>
-      <p class="sub">스레드 · @vincent10061006 · 글 대략 2026-09-28, 2026-09-30</p>
-      <p class="tool">AI 도구 · GPT-6 Astra</p>
-      <p>게임 개발 경험 없이 혼자 만든 택틱스로, 23일 차에 캐릭터, 보스, 스킬, 이펙트, 장비, 소환, 3-5장 스토리까지 갔습니다. 개별 글 주소가 공개 페이지에 없어 프로필을 연결합니다.</p>
-      <a href="https://www.threads.com/@vincent10061006">프로필 보기</a>
-    </li>
-    <li>
-      <h2>AICodeWithMe, 타이베이판 GTA</h2>
-      <p class="sub">스레드 · @aicodewithme · 글 2026-09-28 (한국 시간)</p>
-      <p class="tool">AI 도구 · 글에는 도구명 없음, 보도로는 자체 플랫폼 AICodeWith에서 DeepSeek, Qwen, Kimi, GLM 등 30개 넘는 모델</p>
-      <p>시먼딩, 타이베이역 같은 실제 거리를 담은 3D 오픈월드 브라우저 게임을 AI 토큰 1만 달러 넘게 써서 혼자 만들어 무료로 열었습니다. 댓글로 기능 요청을 받아 바로 업데이트하는 방식으로 조회수 290만을 넘겼습니다.</p>
-      <a href="https://www.threads.com/@aicodewithme/post/DdzIky4Gl9T">원문 보기</a>
-    </li>
-    <li>
-      <h2>0xFunky, 수묵화풍 무협 RPG</h2>
-      <p class="sub">스레드 · @0x0funky · 글 2026-09-17 (한국 시간)</p>
-      <p class="tool">AI 도구 · GPT Pro, Grok Build, Google Lyria API</p>
-      <p>스토리, 캐릭터, 장면, 그림, 애니메이션, 전투, UI, 배경음악까지 AI와 대화만으로 만들어 하루도 안 돼 약 60%를 완성했습니다. 실시간 전투를 다 만들었다가 무협 RPG다운 맛이 안 나서 턴제로 통째로 갈아엎었고, 체험판을 공개하고 스팀 출시를 목표로 합니다.</p>
-      <a href="https://www.threads.com/@0x0funky/post/DdWusqVEn8H">원문 보기</a>
-    </li>
-    <li>
-      <h2>Ersh, 요리 인터랙티브 게임 Let Him Cook</h2>
-      <p class="sub">인스타그램 · @ersharium · 글 2026-09-16</p>
-      <p class="tool">AI 도구 · Replit Agent</p>
-      <p>애니메이션 작가가 그림과 애니메이션은 Procreate로 직접 그리고, Replit에 올려 게임 구상과 로직을 설명한 뒤 에이전트와 상호작용을 다듬었습니다. 그릇에 어떤 재료가 몇 개 들어가느냐에 따라 엔딩이 바뀝니다. Replit 협찬 표시가 있는 글입니다.</p>
-      <a href="https://www.instagram.com/p/DdWiBRhIWto/">원문 보기</a>
-    </li>
-    <li>
-      <h2>0xFunky, 반나절 만의 HD-2D RPG</h2>
-      <p class="sub">스레드 · @0x0funky · 글 2026-09-14 (한국 시간)</p>
-      <p class="tool">AI 도구 · GPT Image 2.5, Grok Build(img2video), Three.js, Google Lyria</p>
-      <p>미술 경험 없이 옥토패스 트래블러 같은 HD-2D 질감을 노렸습니다. GPT Image 2.5로 그림을 뽑고 Grok Build의 이미지→영상 기능으로 동작을 만들어 스프라이트 시트보다 끊김이 줄었고, 지형과 조명은 Three.js로 짰습니다. 과정을 스킬로 정리해 장면 하나를 30분이면 더한다고 합니다.</p>
-      <a href="https://www.threads.com/@0x0funky/post/DdPnTbxk0iF">원문 보기</a>
-    </li>
-    <li>
-      <h2>프롬프트 세 문단으로 만든 3D 게임</h2>
-      <p class="sub">스레드 · @gpt_haterz가 소개 · 원작자는 글에 이름 없음 · 글 2026-09-08</p>
-      <p class="tool">AI 도구 · Claude Code</p>
-      <p>워커 서브에이전트 팀과 코드를 혹독하게 검사하는 별도 AI 리뷰어를 세워 고치고 다시 검사하는 루프를 자동으로 돌렸고, 약 5만 5천 줄짜리 3D 게임이 나왔다고 합니다.</p>
-      <a href="https://www.threads.com/@gpt_haterz/post/DdAvXi7EveY">원문 보기</a>
-    </li>
-    <li>
-      <h2>Simon Willison, 라쿤 하이스트 재현</h2>
-      <p class="sub">스레드 · @soundslikeclickclack이 정리 · 원 실험은 Simon Willison · 글 2026-08-18</p>
-      <p class="tool">AI 도구 · Claude Fable 5(Claude Code), GPT-5.6 Sol Ultra(Codex)</p>
-      <p>2022년 스크린샷 두 장과 프롬프트 하나로 같은 게임을 다시 만들게 했더니, Claude Code는 3D 브라우저 게임을, Codex는 동료를 쌓아 보물을 훔치는 스쿼드 메커닉을 넣었습니다.</p>
-      <a href="https://www.threads.com/@soundslikeclickclack/post/DcK-emeIAiT">원문 보기</a>
-    </li>
-    <li>
-      <h2>9개월 차이로 다시 만든 도시 건설 게임</h2>
-      <p class="sub">인스타그램 · @girsta가 소개 · 개발자는 글에 이름 없음 · 글 2026-08-16</p>
-      <p class="tool">AI 도구 · Cursor Composer 1, Grok 4.6</p>
-      <p>Cursor와 xAI에서 일한 개발자가 같은 취미 게임을 2025년 11월 Composer 1과 2026년 8월 Grok 4.6 루프형 에이전트로 각각 만들어 나란히 비교했습니다.</p>
-      <a href="https://www.instagram.com/reel/DcHGL2YBXj4/">원문 보기</a>
-    </li>
-    <li>
-      <h2>Lolomouse, 삼국지 카드 로그라이크</h2>
-      <p class="sub">스레드 · @lolomousegame · 글 2026-08-13</p>
-      <p class="tool">AI 도구 · Codex</p>
-      <p>코딩 경험 없이 Codex만으로 삼국지 카드 오토배틀 로그라이크를 3개월간 매일 고쳤고, 그날 스팀 무료 데모를 알렸습니다.</p>
-      <a href="https://www.threads.com/@lolomousegame/post/Db_B1bIF2z6">원문 보기</a>
-    </li>
-    <li>
-      <h2>Andrew.Kim, Text23d</h2>
-      <p class="sub">스레드 · @andrew_kim_ai · 글 2026-08-11</p>
-      <p class="tool">AI 도구 · LLM(모델명은 글에 없음)</p>
-      <p>텍스트 한 줄로 3D 오브젝트와 맵을 만들어 바로 FPS로 돌아다닐 수 있게 했습니다. LLM이 맵 구조를 설계하고 소품을 배치하며, 이 맵으로 간단한 갓어스류 게임도 만들었습니다.</p>
-      <a href="https://www.threads.com/@andrew_kim_ai/post/Db5BwyuitLN">원문 보기</a>
-    </li>
-    <li>
-      <h2>Dilmer, Unity CLI로 만든 미니 골프</h2>
-      <p class="sub">스레드 · @dilmerv · 글 2026-08-06 (한국 시간)</p>
-      <p class="tool">AI 도구 · Codex, Unity CLI</p>
-      <p>새로 나온 Unity CLI와 Codex로 미니 골프 게임을 만들고 터미널에서 원격으로 조종했습니다. 영상에서 Unity MCP가 아직 필요한지, C# eval, 자동 빌드와 테스트도 다룹니다.</p>
-      <a href="https://www.threads.com/@dilmerv/post/Dbs76IDAh1u">원문 보기</a>
-    </li>
-    <li>
-      <h2>Vyom, 셀 셰이딩 보트 레이싱 INK TIDE</h2>
-      <p class="sub">스레드 · @sliven0722가 소개 · 제작자는 Vyom · 글 2026-08-01 (한국 시간)</p>
-      <p class="tool">AI 도구 · Claude Opus 5</p>
-      <p>아주 긴 프롬프트 하나로 Vite, TypeScript, Three.js 게임을 뽑았고 비용은 423달러였다고 합니다. 외부 에셋 없이 메시, 텍스처, 효과음을 전부 코드로 만들었고, 거스트너 파도 6겹 위에서 배가 실제로 부력을 받아 흔들리며 AI 상대와 3바퀴를 돕니다.</p>
-      <a href="https://www.threads.com/@sliven0722/post/DbetQlvCexq">원문 보기</a>
-    </li>
-    <li>
-      <h2>Meng To, Vesperfall 스킬 팩</h2>
-      <p class="sub">스레드 · @sliven0722가 공유 · 작성자는 Meng To · 글 2026-07-25</p>
-      <p class="tool">AI 도구 · Codex, Claude Code, Cursor</p>
-      <p>Three.js 아이소메트릭 액션 RPG Vesperfall을 만들 때 쓴 에이전트 스킬을 공개했습니다. 카메라, 적 AI, 전투, 이펙트, 출시까지 다룹니다.</p>
-      <a href="https://www.threads.com/@sliven0722/post/DbOBKOPCe8X">원문 보기</a>
-    </li>
-    <li>
-      <h2>Crystal Chang, 인터랙티브 오디세이</h2>
-      <p class="sub">스레드 · @crystalchang323 · 글 2026-07-24</p>
-      <p class="tool">AI 도구 · GPT, Codex</p>
-      <p>14개 섬을 항해하는 오디세이입니다. 엔지니어가 아니며, GPT로 기획과 완료 기준을 쓰고 Codex가 약 8시간 혼자 구현했습니다.</p>
-      <a href="https://www.threads.com/@crystalchang323/post/DbKuu7lk7EP">원문 보기</a>
-    </li>
-    <li>
-      <h2>장원웨이, 이름으로 싸우는 팽이 게임</h2>
-      <p class="sub">스레드 · @chang404 · 글 2026-06-18 (한국 시간)</p>
-      <p class="tool">AI 도구 · Claude(Claude Artifact로 공개, 4Gamers 보도 기준)</p>
-      <p>스팀 게임 《문자 게임》 제작자가 이름의 한자 하나하나를 팽이로 바꿔 글자 모양에 따라 무게, 안정성, 공격, 방어가 정해지는 대전 게임을 만들었습니다. 만화가인 여자친구 @shinyan_dungeon이 공유한 글이 하루 만에 조회수 19만을 넘겼습니다.</p>
-      <a href="https://www.threads.com/@chang404/post/DZsSH5Rk2yR">원문 보기</a>
-    </li>
-    <li>
-      <h2>Rift Salvage, 45분 만의 탑다운 슈팅</h2>
-      <p class="sub">스레드 · @passionplus_ai가 소개 · 시연한 유튜버는 글에 이름 없음 · 글 2026-05-12</p>
-      <p class="tool">AI 도구 · Codex, GPT image gen 2</p>
-      <p>Plan 모드에서 빌드 성공과 Playwright 시나리오 통과 같은 완료 기준을 먼저 정해 두고 Goals 두 번으로 완성했습니다. 드론, 적, 보스, 배경, UI 에셋 11종도 Codex가 직접 만들었습니다.</p>
-      <a href="https://www.threads.com/@passionplus_ai/post/DYOez1RgWtP">원문 보기</a>
-    </li>
-    <li>
-      <h2>디자인 학원 원장님의 첫 게임</h2>
-      <p class="sub">스레드 · @toss.appsintoss가 소개 · 제작자는 @design_prep · 글 2026-05-08 (한국 시간)</p>
-      <p class="tool">AI 도구 · Gemini, GPT, Midjourney, SUNO</p>
-      <p>비개발자가 "게임이 제일 어려울 것 같아서" 첫 프로젝트로 게임을 골라 주말 저녁마다 만들어 앱인토스에 출시했습니다. 다음 미니앱은 학생용 면접 시뮬레이터였습니다.</p>
-      <a href="https://www.threads.com/@toss.appsintoss/post/DYD_IKDjyMu">원문 보기</a>
-    </li>
-    <li>
-      <h2>서유기 픽셀 게임</h2>
-      <p class="sub">스레드 · @techtalk.ai.tech.web · 글 2026-05-06 (한국 시간)</p>
-      <p class="tool">AI 도구 · Codex, 이미지 생성 에이전트 스킬</p>
-      <p>Codex로 코드를 쓰면서 같은 대화 안에서 "손오공 공격 애니메이션 만들어 줘" 한 줄로 스프라이트 시트와 맵 그림까지 뽑았습니다. Midjourney에서 만들고 내보내고 이름 바꿔 붙이던 과정을 없앴다고 하며, 과정과 소스를 공개했습니다.</p>
-      <a href="https://www.threads.com/@techtalk.ai.tech.web/post/DX-fCWaEUZ4">원문 보기</a>
-    </li>
-    <li>
-      <h2>Dilmer, VR/MR 농구 게임</h2>
-      <p class="sub">스레드 · @dilmerv · 글 2026-05-04</p>
-      <p class="tool">AI 도구 · Unity AI Assistant, Claude Agent, Claude Code CLI</p>
-      <p>Unity 안의 AI 도우미와 외부 Claude Code를 함께 쓰고, Meta XR Simulator로 반복 테스트하며 VR/MR 농구 게임을 만들었습니다.</p>
-      <a href="https://www.threads.com/@dilmerv/post/DX4aZ5FFAWy">원문 보기</a>
-    </li>
-    <li>
-      <h2>Tack Lin, 30분 만의 좀비 액션 게임</h2>
-      <p class="sub">스레드 · @tack.lin · 글 2026-04-25 (한국 시간)</p>
-      <p class="tool">AI 도구 · Codex, Image 2</p>
-      <p>요구사항을 두세 번 고치며 약 30분, 한 세션 안에서 압축 없이 좀비 열 마리를 잡으면 Q 스킬이 열리는 액션 게임을 만들었습니다. 그림과 애니메이션도 AI가 직접 만들었다고 합니다.</p>
-      <a href="https://www.threads.com/@tack.lin/post/DXiMuWkEVZX">원문 보기</a>
-    </li>
-    <li>
-      <h2>Joscha Falck, 역사 수업용 방탈출 Archiv 45</h2>
-      <p class="sub">인스타그램 · @joschafalck · 글 2026-03-10 (한국 시간 3월 11일)</p>
-      <p class="tool">AI 도구 · Claude Code 서브에이전트</p>
-      <p>교사가 교수 설계, 역사 내용, 퍼즐, 코드, 디자인, 품질 검사를 맡은 서브에이전트 여섯 개로 1945년 베를린 기록 보관소를 푸는 중학생용 브라우저 방탈출 게임을 만들었습니다. 결과를 직접 검토하며 여러 번 고쳤습니다.</p>
-      <a href="https://www.instagram.com/p/DVtiXQsjK7D/">원문 보기</a>
-    </li>
-    <li>
-      <h2>Peter Yang, 아이와 만드는 레트로 픽셀 게임</h2>
-      <p class="sub">스레드 · @petergyang · 글 2026-01-22</p>
-      <p class="tool">AI 도구 · Claude Code</p>
-      <p>일곱 살 아이와 20분 만에 레트로 픽셀 게임을 만드는 튜토리얼입니다. AskUserQuestion으로 기획서를 잡고 GitHub와 Vercel로 배포합니다.</p>
-      <a href="https://www.threads.com/@petergyang/post/DTxxhxhlNzc">원문 보기</a>
-    </li>
-    <li>
-      <h2>Mani, 네오지오 게임 엔진</h2>
-      <p class="sub">스레드 · @manicakes1 · 글 2026-01-02 (한국 시간 1월 3일)</p>
-      <p class="tool">AI 도구 · Claude Code</p>
-      <p>1990년 아케이드 하드웨어인 네오지오용 게임 엔진을 3일 만에 만들었습니다. 물리, 어셈블리로 짠 Z80 오디오 드라이버, 패럴랙스 스크롤, 에셋 파이프라인까지 들어갔습니다.</p>
-      <a href="https://www.threads.com/@manicakes1/post/DTBF2m1Dwop">원문 보기</a>
-    </li>
-    <li>
-      <h2>Prompt Case, 서바이버류 복셀 슈팅</h2>
-      <p class="sub">스레드 · @prompt_case · 글 2025-11-19 (한국 시간)</p>
-      <p class="tool">AI 도구 · Gemini 3 Pro(AI Studio)</p>
-      <p>복셀 적과 파티클, 코인과 경험치, 자동 사격과 무기 업그레이드가 있는 로그라이크를 프롬프트 하나로 두세 번 다시 뽑아 만들었습니다. 한 번에 안 되면 이어서 고치게 할 때 멀쩡한 코드까지 바꿔 버리기 쉽다는 경고를 남겼습니다.</p>
-      <a href="https://www.threads.com/@prompt_case/post/DRO0S9ojRLw">원문 보기</a>
-    </li>
-    <li>
-      <h2>Prompt Case, 홀아이오풍 3D 웹 게임</h2>
-      <p class="sub">스레드 · @prompt_case · 글 2025-03-03 (한국 시간)</p>
-      <p class="tool">AI 도구 · Claude 3.7 Sonnet</p>
-      <p>블랙홀이 도시의 나무, 사람, 차, 건물을 삼키며 커지는 3D 웹 게임을 코드를 직접 고치지 않고 몇 번의 대화로 완성했습니다. 플랫폼, 목적, 세부 사항 순으로 쓰는 프롬프트 원문을 함께 공개했습니다.</p>
-      <a href="https://www.threads.com/@prompt_case/post/DGvLorfvJL3">원문 보기</a>
-    </li>
-    <li>
-      <h2>Pieter, 혼자 만든 멀티플레이 비행 시뮬레이터</h2>
-      <p class="sub">인스타그램 · @thevarunmayya가 소개 · 제작자는 인디 해커 Pieter · 글 2025-03-02</p>
-      <p class="tool">AI 도구 · Cursor, Grok 3</p>
-      <p>"고층 빌딩 사이를 나는 브라우저 3D 비행 게임을 만들어 줘"라는 요청으로 몇 시간 만에 처음 만들어 보는 비행 시뮬레이터를 돌아가게 했고, 코드는 거의 전부 AI가 썼습니다.</p>
-      <a href="https://www.instagram.com/thevarunmayya/reel/DGsUFDMhCYX/">원문 보기</a>
-    </li>
-  </ol>
-  <footer>평일 아침마다 새 사례만 이 페이지에 더합니다. 다른 사람의 작업을 소개한 글은 소개한 계정과 원작자를 함께 적었습니다.</footer>
+  <div class="tools">
+    <button type="button" data-filter="all" aria-pressed="true">전체</button>
+    <button type="button" data-filter="Threads" aria-pressed="false">스레드</button>
+    <button type="button" data-filter="Instagram" aria-pressed="false">인스타그램</button>
+    <button type="button" data-filter="X" aria-pressed="false">X</button>
+    <input class="search" type="search" placeholder="제목, 도구, 계정 검색" aria-label="사례 검색">
+  </div>
+  <div id="cases">
+
+    <article class="case" data-platform="X" id="memento">
+      <div class="body">
+        <p class="num">01</p>
+        <h2>6년 묵힌 추리게임 기획 &#x27;메멘토 코드;&#x27; 프롤로그를 클로드로 웹게임화</h2>
+        <p class="sub">X · @letsgotoiletnow · 좌변기 · 글 2026-10-01</p>
+        <p class="tool">AI 도구 · Claude (무료 플랜), 직접 그린 일러스트</p>
+        <p class="desc">2020년부터 기획해 온 다수결 데스게임 추리게임 《메멘토 코드;》의 프롤로그 약 5분 분량을 Claude 무료 플랜으로 웹게임으로 만들었습니다. 대사와 연출을 데이터 테이블로 빼서 본인이 표를 고치고 AI가 반영하게 했습니다. UI는 AI와 현업 개발자 피드백으로 다듬었고, 배경과 캐릭터 일러스트는 직접 그렸습니다.</p>
+        <p class="take"><span>참고할 점</span> 대사와 연출을 코드가 아닌 데이터 테이블로 분리하게 하면 기획자가 AI와 기획자-개발자 방식으로 빠르게 반복할 수 있습니다.</p>
+        <p class="more"><a href="https://x.com/letsgotoiletnow/status/2105615564475609438" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://x.com/letsgotoiletnow/status/2105615564475609438" target="_blank" rel="noopener noreferrer"><img src="shots/01-memento.jpg" alt="6년 묵힌 추리게임 기획 &#x27;메멘토 코드;&#x27; 프롤로그를 클로드로 웹게임화 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="vincent-dice">
+      <div class="body">
+        <p class="num">02</p>
+        <h2>Vincent Chiang, Project DICE</h2>
+        <p class="sub">스레드 · @vincent10061006 · 글 대략 2026-09-28, 2026-09-30</p>
+        <p class="tool">AI 도구 · GPT-6 Astra</p>
+        <p class="desc">게임 개발 경험 없이 혼자 만든 택틱스로, 23일 차에 캐릭터, 보스, 스킬, 이펙트, 장비, 소환, 3-5장 스토리까지 갔습니다. 개별 글 주소가 공개 페이지에 없어 프로필을 연결합니다.</p>
+        <p class="take"><span>참고할 점</span> 개발 경험이 없어도 23일 차에 캐릭터, 보스, 스킬, 이펙트, 장비, 소환, 3-5장 스토리까지 갈 수 있었습니다.</p>
+        <p class="more"><a href="https://www.threads.com/@vincent10061006" target="_blank" rel="noopener noreferrer">프로필 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@vincent10061006" target="_blank" rel="noopener noreferrer"><img src="shots/02-vincent.jpg" alt="Vincent Chiang, Project DICE 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="taipei-gta">
+      <div class="body">
+        <p class="num">03</p>
+        <h2>AICodeWithMe, 타이베이판 GTA</h2>
+        <p class="sub">스레드 · @aicodewithme · 글 2026-09-28 (한국 시간)</p>
+        <p class="tool">AI 도구 · 글에는 도구명 없음, 보도로는 자체 플랫폼 AICodeWith에서 DeepSeek, Qwen, Kimi, GLM 등 30개 넘는 모델</p>
+        <p class="desc">시먼딩, 타이베이역 같은 실제 거리를 담은 3D 오픈월드 브라우저 게임을 AI 토큰 1만 달러 넘게 써서 혼자 만들어 무료로 열었습니다. 댓글로 기능 요청을 받아 바로 업데이트하는 방식으로 조회수 290만을 넘겼습니다.</p>
+        <p class="take"><span>참고할 점</span> 댓글로 기능 요청을 받아 바로 반영하는 업데이트 방식이 조회수 290만을 넘겼습니다.</p>
+        <p class="more"><a href="https://www.threads.com/@aicodewithme/post/DdzIky4Gl9T" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@aicodewithme/post/DdzIky4Gl9T" target="_blank" rel="noopener noreferrer"><img src="shots/03-taipei-gta.jpg" alt="AICodeWithMe, 타이베이판 GTA 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="X" id="drone">
+      <div class="body">
+        <p class="num">04</p>
+        <h2>&#x27;드론키우기&#x27; 개발자의 AI 게임 제작 팁: 세션 5개와 교차검증 팀장</h2>
+        <p class="sub">X · @CryptoCryingCat · 우는고양이 · 글 2026-09-28</p>
+        <p class="tool">AI 도구 · Codex, GPT 이미지 생성, Claude (비교 대상)</p>
+        <p class="desc">게임 &#x27;드론키우기&#x27;를 만들고 있는 그는 이미지 생성으로 에셋 만들기, 기획서를 먼저 확정하기, 작업판으로 컨텍스트가 압축된 뒤에도 맥락을 유지하기를 팁으로 꼽았습니다. 세션 5개를 역할별로 고정하고, 교차검증 팀장 세션이 메인 개발자 세션을 검토하며, 메인 개발자는 5번 교체돼 지금 V6가 일한다고 했습니다. 게임 제작은 이미지를 보고 생성할 수 있는 Codex가 맞다고 주장했고, 서버 구축은 Codex도 어려워 개발자 친구 도움을 받았다고 덧붙였습니다.</p>
+        <p class="take"><span>참고할 점</span> 구현 세션과 검토 세션을 나누고, 결과가 나쁜 세션은 과감히 새로 띄우는 운영 방식이 AI 게임 개발의 품질을 지킵니다.</p>
+        <p class="more"><a href="https://x.com/CryptoCryingCat/status/2104496264507506939" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://x.com/CryptoCryingCat/status/2104496264507506939" target="_blank" rel="noopener noreferrer"><img src="shots/04-drone.jpg" alt="&#x27;드론키우기&#x27; 개발자의 AI 게임 제작 팁: 세션 5개와 교차검증 팀장 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="wuxia">
+      <div class="body">
+        <p class="num">05</p>
+        <h2>0xFunky, 수묵화풍 무협 RPG</h2>
+        <p class="sub">스레드 · @0x0funky · 글 2026-09-17 (한국 시간)</p>
+        <p class="tool">AI 도구 · GPT Pro, Grok Build, Google Lyria API</p>
+        <p class="desc">스토리, 캐릭터, 장면, 그림, 애니메이션, 전투, UI, 배경음악까지 AI와 대화만으로 만들어 하루도 안 돼 약 60%를 완성했습니다. 실시간 전투를 다 만들었다가 무협 RPG다운 맛이 안 나서 턴제로 통째로 갈아엎었고, 체험판을 공개하고 스팀 출시를 목표로 합니다.</p>
+        <p class="take"><span>참고할 점</span> 장르에 안 맞으면 실시간 전투를 다 만든 뒤에도 턴제로 통째로 바꿀 수 있습니다.</p>
+        <p class="more"><a href="https://www.threads.com/@0x0funky/post/DdWusqVEn8H" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@0x0funky/post/DdWusqVEn8H" target="_blank" rel="noopener noreferrer"><img src="shots/05-wuxia.jpg" alt="0xFunky, 수묵화풍 무협 RPG 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="X" id="stefan-gta">
+      <div class="body">
+        <p class="num">06</p>
+        <h2>Codex가 언리얼5를 조종해 만든 GTA풍 도시 게임</h2>
+        <p class="sub">X · @Stefan_3D_AI · 글 2026-09-16</p>
+        <p class="tool">AI 도구 · GPT-6, Codex, Unreal Engine 5, Higgsfield, Tripo, Meshy, Seedance, Seed Audio, fal</p>
+        <p class="desc">코드나 3D를 손으로 하나도 만들지 않고 프롬프트만으로 5일 동안 GTA 스타일 도시를 만들었다고 합니다. 게시자는 25억 토큰을 썼고, Codex가 언리얼 엔진 5를 조종하는 동안 Higgsfield, Tripo, Meshy, Seedance, Seed Audio, fal이 건물, 캐릭터, 애니메이션, 머티리얼, 사운드를 맡았다고 밝혔습니다. 건물 8개와 주민·경찰 음성 247줄, 라디오 5개 채널의 트랙 10곡이 들어갔고, 토큰 대부분은 만들기보다 고치기와 기록을 다시 읽는 데 쓰였다고 합니다.</p>
+        <p class="take"><span>참고할 점</span> AI 게임 제작 비용의 대부분은 첫 구현이 아니라 상호작용 애니메이션을 반복해서 고치는 데 든다는 점을 미리 예산에 넣어야 합니다.</p>
+        <p class="more"><a href="https://x.com/Stefan_3D_AI/status/2100201776905633901" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://x.com/Stefan_3D_AI/status/2100201776905633901" target="_blank" rel="noopener noreferrer"><img src="shots/06-stefan-gta.jpg" alt="Codex가 언리얼5를 조종해 만든 GTA풍 도시 게임 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Instagram" id="let-him-cook">
+      <div class="body">
+        <p class="num">07</p>
+        <h2>Ersh, 요리 인터랙티브 게임 Let Him Cook</h2>
+        <p class="sub">인스타그램 · @ersharium · 글 2026-09-16</p>
+        <p class="tool">AI 도구 · Replit Agent</p>
+        <p class="desc">애니메이션 작가가 그림과 애니메이션은 Procreate로 직접 그리고, Replit에 올려 게임 구상과 로직을 설명한 뒤 에이전트와 상호작용을 다듬었습니다. 그릇에 어떤 재료가 몇 개 들어가느냐에 따라 엔딩이 바뀝니다. Replit 협찬 표시가 있는 글입니다.</p>
+        <p class="take"><span>참고할 점</span> 그림과 애니메이션은 직접 그리고, 로직과 상호작용만 에이전트에 맡겼습니다.</p>
+        <p class="more"><a href="https://www.instagram.com/p/DdWiBRhIWto/" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.instagram.com/p/DdWiBRhIWto/" target="_blank" rel="noopener noreferrer"><img src="shots/07-let-him-cook.jpg" alt="Ersh, 요리 인터랙티브 게임 Let Him Cook 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="hd2d">
+      <div class="body">
+        <p class="num">08</p>
+        <h2>0xFunky, 반나절 만의 HD-2D RPG</h2>
+        <p class="sub">스레드 · @0x0funky · 글 2026-09-14 (한국 시간)</p>
+        <p class="tool">AI 도구 · GPT Image 2.5, Grok Build(img2video), Three.js, Google Lyria</p>
+        <p class="desc">미술 경험 없이 옥토패스 트래블러 같은 HD-2D 질감을 노렸습니다. GPT Image 2.5로 그림을 뽑고 Grok Build의 이미지→영상 기능으로 동작을 만들어 스프라이트 시트보다 끊김이 줄었고, 지형과 조명은 Three.js로 짰습니다. 과정을 스킬로 정리해 장면 하나를 30분이면 더한다고 합니다.</p>
+        <p class="take"><span>참고할 점</span> 과정을 스킬로 정리해 두면 스토리가 있는 장면 하나를 약 30분에 더할 수 있습니다.</p>
+        <p class="more"><a href="https://www.threads.com/@0x0funky/post/DdPnTbxk0iF" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@0x0funky/post/DdPnTbxk0iF" target="_blank" rel="noopener noreferrer"><img src="shots/08-hd2d.jpg" alt="0xFunky, 반나절 만의 HD-2D RPG 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="one-prompt">
+      <div class="body">
+        <p class="num">09</p>
+        <h2>프롬프트 세 문단으로 만든 3D 게임</h2>
+        <p class="sub">스레드 · @gpt_haterz가 소개 · 원작자는 글에 이름 없음 · 글 2026-09-08</p>
+        <p class="tool">AI 도구 · Claude Code</p>
+        <p class="desc">워커 서브에이전트 팀과 코드를 혹독하게 검사하는 별도 AI 리뷰어를 세워 고치고 다시 검사하는 루프를 자동으로 돌렸고, 약 5만 5천 줄짜리 3D 게임이 나왔다고 합니다.</p>
+        <p class="take"><span>참고할 점</span> 만드는 에이전트와 혹평하는 리뷰어를 따로 두면 고치고 다시 검사하는 루프가 자동으로 돕니다.</p>
+        <p class="more"><a href="https://www.threads.com/@gpt_haterz/post/DdAvXi7EveY" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@gpt_haterz/post/DdAvXi7EveY" target="_blank" rel="noopener noreferrer"><img src="shots/09-one-prompt.jpg" alt="프롬프트 세 문단으로 만든 3D 게임 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="X" id="robo-tennis">
+      <div class="body">
+        <p class="num">10</p>
+        <h2>여러 AI 도구로 만든 유니티 로보 테니스 (웹에서 플레이 가능)</h2>
+        <p class="sub">X · @chongdashu · 글 2026-09-03</p>
+        <p class="tool">AI 도구 · Fable 5.1, GPT 5.6, Grok 4.6, Unity CLI, Blender MCP, Meshy, ElevenLabs</p>
+        <p class="desc">Chong-U가 AI 도구만으로 만든 유니티 아케이드 로봇 테니스 게임을 웹에 공개했습니다. Fable 5.1, GPT 5.6, Grok 4.6이 Unity CLI와 Blender MCP를 다뤘고, 3D 모델은 Meshy, 사운드는 ElevenLabs로 만들었습니다. 이전 글에서는 포핸드, 백핸드, 스매시, 서브 애니메이션을 묶어 플레이 가능하게 한 뒤 낮밤 주기와 반응하는 관중까지 넣었다고 밝혔습니다.</p>
+        <p class="take"><span>참고할 점</span> Unity CLI와 Blender MCP를 쓰면 에디터를 열지 않고도 모델링, 리깅, 애니메이션, 조작을 에이전트가 한 흐름으로 이어 붙일 수 있습니다.</p>
+        <p class="more"><a href="https://x.com/chongdashu/status/2095474932356669677" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://x.com/chongdashu/status/2095474932356669677" target="_blank" rel="noopener noreferrer"><img src="shots/10-robo-tennis.jpg" alt="여러 AI 도구로 만든 유니티 로보 테니스 (웹에서 플레이 가능) 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="X" id="fishing">
+      <div class="body">
+        <p class="num">11</p>
+        <h2>Claude Code와 Godot로 4주 만에 키운 3D 낚시 게임</h2>
+        <p class="sub">X · @hakimieiqbal · 글 2026-08-25</p>
+        <p class="tool">AI 도구 · Claude Code, Godot, Blender MCP, Tripo 3D, ChatGPT 이미지 생성</p>
+        <p class="desc">4주 전만 해도 거의 없던 AI 제작 낚시 게임이 지금은 3D 항구, 동적인 물, 낮밤 주기, 커스텀 UI까지 갖췄습니다. 대부분 Claude Code와 Godot로 만들었고, 3D 모델은 Blender MCP와 Tripo 3D로, 이미지는 ChatGPT로 생성했습니다. 게시자는 지금까지 총비용이 약 300달러라고 밝혔습니다.</p>
+        <p class="take"><span>참고할 점</span> 코드 에이전트에 Blender MCP와 3D 생성기를 붙이면 1인 개발자도 300달러 안팎으로 3D 게임의 바탕을 만들 수 있습니다.</p>
+        <p class="more"><a href="https://x.com/hakimieiqbal/status/2092194086073614342" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://x.com/hakimieiqbal/status/2092194086073614342" target="_blank" rel="noopener noreferrer"><img src="shots/11-fishing.jpg" alt="Claude Code와 Godot로 4주 만에 키운 3D 낚시 게임 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="X" id="codex-tools">
+      <div class="body">
+        <p class="num">12</p>
+        <h2>Codex를 게임 엔진처럼 쓰는 법: 맞춤 툴을 핀 고정 스레드로</h2>
+        <p class="sub">X · @NicolasZu · 글 2026-08-24</p>
+        <p class="tool">AI 도구 · Codex, Codex worktree, /yeet skill, Linear</p>
+        <p class="desc">Nicolas Zullo는 Codex로 자기 게임 아트 디렉션에 맞는 건물 생성기 같은 맞춤 툴을 만들고, worktree에서 띄운 툴 화면을 스레드에 핀 고정해 쓰는 워크플로를 영상으로 보여줬습니다. 툴을 쓰다가 바로 고칠 수 있고, /yeet 스킬로 커밋, 푸시, PR까지 처리합니다. 현지화, 사운드, 좀비 생성, 맵 디자인, 성능 시뮬레이션, Steam 마케팅까지 각각 툴을 두고 있습니다.</p>
+        <p class="take"><span>참고할 점</span> AI에게 게임을 통째로 맡기기보다 내 게임 전용 제작 툴을 만들게 하고 그 툴을 쓰면서 계속 개선하는 편이 생산성이 큽니다.</p>
+        <p class="more"><a href="https://x.com/NicolasZu/status/2091765370499600520" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://x.com/NicolasZu/status/2091765370499600520" target="_blank" rel="noopener noreferrer"><img src="shots/12-codex-tools.jpg" alt="Codex를 게임 엔진처럼 쓰는 법: 맞춤 툴을 핀 고정 스레드로 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="raccoon">
+      <div class="body">
+        <p class="num">13</p>
+        <h2>Simon Willison, 라쿤 하이스트 재현</h2>
+        <p class="sub">스레드 · @soundslikeclickclack이 정리 · 원 실험은 Simon Willison · 글 2026-08-18</p>
+        <p class="tool">AI 도구 · Claude Fable 5(Claude Code), GPT-5.6 Sol Ultra(Codex)</p>
+        <p class="desc">2022년 스크린샷 두 장과 프롬프트 하나로 같은 게임을 다시 만들게 했더니, Claude Code는 3D 브라우저 게임을, Codex는 동료를 쌓아 보물을 훔치는 스쿼드 메커닉을 넣었습니다.</p>
+        <p class="take"><span>참고할 점</span> 같은 프롬프트라도 도구에 따라 3D 게임과 스쿼드 메커닉처럼 결과가 갈립니다.</p>
+        <p class="more"><a href="https://www.threads.com/@soundslikeclickclack/post/DcK-emeIAiT" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@soundslikeclickclack/post/DcK-emeIAiT" target="_blank" rel="noopener noreferrer"><img src="shots/13-raccoon.jpg" alt="Simon Willison, 라쿤 하이스트 재현 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Instagram" id="city-builder">
+      <div class="body">
+        <p class="num">14</p>
+        <h2>9개월 차이로 다시 만든 도시 건설 게임</h2>
+        <p class="sub">인스타그램 · @girsta가 소개 · 개발자는 글에 이름 없음 · 글 2026-08-16</p>
+        <p class="tool">AI 도구 · Cursor Composer 1, Grok 4.6</p>
+        <p class="desc">Cursor와 xAI에서 일한 개발자가 같은 취미 게임을 2025년 11월 Composer 1과 2026년 8월 Grok 4.6 루프형 에이전트로 각각 만들어 나란히 비교했습니다.</p>
+        <p class="take"><span>참고할 점</span> 같은 취미 게임을 9개월 간격의 다른 모델로 나란히 비교한 사례입니다.</p>
+        <p class="more"><a href="https://www.instagram.com/reel/DcHGL2YBXj4/" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.instagram.com/reel/DcHGL2YBXj4/" target="_blank" rel="noopener noreferrer"><img src="shots/14-city-builder.jpg" alt="9개월 차이로 다시 만든 도시 건설 게임 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="X" id="kaiju">
+      <div class="body">
+        <p class="num">15</p>
+        <h2>언리얼을 버리고 AI로 짠 자체 엔진 Kaiju, 단종된 Firefall 이식</h2>
+        <p class="sub">X · @Grummz · 글 2026-08-16 (한국 시간, 미국 시간 8월 15일)</p>
+        <p class="tool">AI 도구 · Grok, Codex, Claude, Jolt Physics, Ozz Animation, Blender 플러그인</p>
+        <p class="desc">Firefall 개발진 출신인 그는 언리얼을 대신할 엔진 Kaiju Engine을 Grok, Codex, Claude로 번갈아 작성했고, 검증 삼아 10년 전 서비스가 끝난 Firefall을 소스 없이 Steam 다운로드 파일만으로 이식했습니다. 게시자 말로는 원래 엔진은 2~3년에 500만 달러 이상이 들었지만 새 엔진은 5개월, 수천 달러로 만들었고 빌드 시간은 30분에서 36초로 줄었습니다. 메시렛 렌더링, 메가텍스처 스트리밍, 행성 규모 렌더러를 갖췄고 후속작 Em-8ER를 개발 중입니다.</p>
+        <p class="take"><span>참고할 점</span> AI 코딩 에이전트는 게임 자체뿐 아니라 필요한 기능만 담은 자체 엔진과 옛 게임 보존 작업에도 쓸 수 있습니다.</p>
+        <p class="more"><a href="https://x.com/Grummz/status/2088659894669046258" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://x.com/Grummz/status/2088659894669046258" target="_blank" rel="noopener noreferrer"><img src="shots/15-kaiju.jpg" alt="언리얼을 버리고 AI로 짠 자체 엔진 Kaiju, 단종된 Firefall 이식 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="doguri">
+      <div class="body">
+        <p class="num">16</p>
+        <h2>크레이지아케이드 종료 소식에 Codex로 만든 오마주 &#x27;도구리 물풍선&#x27;</h2>
+        <p class="sub">스레드 · @cowboy76 · 글 2026-08-15 (고정 게시물, 페이지 표시 08/15/26)</p>
+        <p class="tool">AI 도구 · Codex</p>
+        <p class="desc">크레이지아케이드 서비스 종료 소식을 들은 날 Codex로 비공식 오마주 &#x27;도구리 물풍선 게임&#x27;을 만들고 있는 게임업계 출신 개발자의 연속 글입니다. 깨졌다 다시 어는 얼음, 예고 후 분출하는 화산, 중력장, 운석처럼 맵마다 다른 변수를 넣었고, 물줄기를 계산해 피하는 AI 봇도 만들었습니다. 맵은 15×13 격자에 맞춰 배경, 충돌, 이펙트를 분리했고 방송국형 로비와 시상대도 추가했습니다.</p>
+        <p class="take"><span>참고할 점</span> 종료되는 추억의 게임을 그대로 복제하기보다 맵별 변수 같은 새 규칙을 더하면 AI로 만든 오마주도 자기만의 재미를 가질 수 있습니다.</p>
+        <p class="more"><a href="https://www.threads.com/@cowboy76" target="_blank" rel="noopener noreferrer">프로필 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@cowboy76" target="_blank" rel="noopener noreferrer"><img src="shots/16-doguri.jpg" alt="크레이지아케이드 종료 소식에 Codex로 만든 오마주 &#x27;도구리 물풍선&#x27; 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="lolomouse">
+      <div class="body">
+        <p class="num">17</p>
+        <h2>Lolomouse, 삼국지 카드 로그라이크</h2>
+        <p class="sub">스레드 · @lolomousegame · 글 2026-08-13</p>
+        <p class="tool">AI 도구 · Codex</p>
+        <p class="desc">코딩 경험 없이 Codex만으로 삼국지 카드 오토배틀 로그라이크를 3개월간 매일 고쳤고, 그날 스팀 무료 데모를 알렸습니다.</p>
+        <p class="take"><span>참고할 점</span> 코딩 경험 없이 매일 고친 3개월 끝에 스팀 무료 데모까지 갔습니다.</p>
+        <p class="more"><a href="https://www.threads.com/@lolomousegame/post/Db_B1bIF2z6" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@lolomousegame/post/Db_B1bIF2z6" target="_blank" rel="noopener noreferrer"><img src="shots/17-lolomouse.jpg" alt="Lolomouse, 삼국지 카드 로그라이크 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="text23d">
+      <div class="body">
+        <p class="num">18</p>
+        <h2>Andrew.Kim, Text23d</h2>
+        <p class="sub">스레드 · @andrew_kim_ai · 글 2026-08-11</p>
+        <p class="tool">AI 도구 · LLM(모델명은 글에 없음)</p>
+        <p class="desc">텍스트 한 줄로 3D 오브젝트와 맵을 만들어 바로 FPS로 돌아다닐 수 있게 했습니다. LLM이 맵 구조를 설계하고 소품을 배치하며, 이 맵으로 간단한 갓어스류 게임도 만들었습니다.</p>
+        <p class="take"><span>참고할 점</span> 한 줄 텍스트로 만든 맵을 바로 FPS로 걸어 다니며 확인할 수 있습니다.</p>
+        <p class="more"><a href="https://www.threads.com/@andrew_kim_ai/post/Db5BwyuitLN" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@andrew_kim_ai/post/Db5BwyuitLN" target="_blank" rel="noopener noreferrer"><img src="shots/18-text23d.jpg" alt="Andrew.Kim, Text23d 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="X" id="space-punk">
+      <div class="body">
+        <p class="num">19</p>
+        <h2>Grok Build로 만든 스노보드 게임 &#x27;Space Punk&#x27; Steam 얼리 액세스</h2>
+        <p class="sub">X · @ShyneB0X · 글 2026-08-09 (한국 시간, 미국 시간 8월 8일)</p>
+        <p class="tool">AI 도구 · Grok Build</p>
+        <p class="desc">네온 보드로 끝없는 산을 내려오며 레일 그라인드, 공중 기술, 스타일 점수를 쌓는 게임 Space Punk의 새 트레일러를 공개했습니다. 게시자는 이 게임을 Grok Build로 만든 첫 Steam 게임이라고 했고, 8월 17일 얼리 액세스 예정이라고 했습니다. Steam 상점 페이지(app 5031830)가 있고 출시일은 2026년 8월 18일로 표시됩니다.</p>
+        <p class="take"><span>참고할 점</span> 코드 에이전트로 만든 게임도 상점 페이지, 트레일러, 위시리스트까지 일반 인디 게임과 같은 출시 절차를 밟으면 실제 상품이 됩니다.</p>
+        <p class="more"><a href="https://x.com/ShyneB0X/status/2086142832721424686" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://x.com/ShyneB0X/status/2086142832721424686" target="_blank" rel="noopener noreferrer"><img src="shots/19-space-punk.jpg" alt="Grok Build로 만든 스노보드 게임 &#x27;Space Punk&#x27; Steam 얼리 액세스 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="minigolf">
+      <div class="body">
+        <p class="num">20</p>
+        <h2>Dilmer, Unity CLI로 만든 미니 골프</h2>
+        <p class="sub">스레드 · @dilmerv · 글 2026-08-06 (한국 시간)</p>
+        <p class="tool">AI 도구 · Codex, Unity CLI</p>
+        <p class="desc">새로 나온 Unity CLI와 Codex로 미니 골프 게임을 만들고 터미널에서 원격으로 조종했습니다. 영상에서 Unity MCP가 아직 필요한지, C# eval, 자동 빌드와 테스트도 다룹니다.</p>
+        <p class="take"><span>참고할 점</span> 새 Unity CLI와 Codex로 만들고 터미널에서 원격으로 조종할 수 있습니다.</p>
+        <p class="more"><a href="https://www.threads.com/@dilmerv/post/Dbs76IDAh1u" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@dilmerv/post/Dbs76IDAh1u" target="_blank" rel="noopener noreferrer"><img src="shots/20-minigolf.jpg" alt="Dilmer, Unity CLI로 만든 미니 골프 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="X" id="mafia">
+      <div class="body">
+        <p class="num">21</p>
+        <h2>1인 개발 어몽어스류 마피아 게임, 분야별 AI 도구 구성 공개</h2>
+        <p class="sub">X · @building_KR · xPark · 글 2026-08-05</p>
+        <p class="tool">AI 도구 · Claude Opus 5 (Max), Unreal Engine, Fijam, Hermes, MiniMax M3, 이미지 생성 모델, pixel3d local, Blender, MiniMax H3</p>
+        <p class="desc">개발 시작 이틀째인 어몽어스풍 마피아 게임의 분야별 제작 도구를 공개했습니다. 시스템은 Claude Opus 5 Max, 엔진은 언리얼, 시나리오는 Fijam, 오케스트레이션은 Hermes와 MiniMax M3, 일러스트는 이미지 생성 모델, 3D와 모션은 pixel3d local과 블렌더, 시네마틱은 MiniMax H3입니다. 혼자 12개 자아로 테스트하고 있고, 목표는 내년 Steam 출시라고 했습니다.</p>
+        <p class="take"><span>참고할 점</span> 기획, 코드, 아트, 3D, 영상, 테스트를 각각 다른 AI에 맡기는 파이프라인 표를 먼저 정해 두면 1인 개발의 역할 공백을 잘 볼 수 있습니다.</p>
+        <p class="more"><a href="https://x.com/building_KR/status/2084814547353993712" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://x.com/building_KR/status/2084814547353993712" target="_blank" rel="noopener noreferrer"><img src="shots/21-mafia.jpg" alt="1인 개발 어몽어스류 마피아 게임, 분야별 AI 도구 구성 공개 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="ink-tide">
+      <div class="body">
+        <p class="num">22</p>
+        <h2>Vyom, 셀 셰이딩 보트 레이싱 INK TIDE</h2>
+        <p class="sub">스레드 · @sliven0722가 소개 · 제작자는 Vyom · 글 2026-08-01 (한국 시간)</p>
+        <p class="tool">AI 도구 · Claude Opus 5</p>
+        <p class="desc">아주 긴 프롬프트 하나로 Vite, TypeScript, Three.js 게임을 뽑았고 비용은 423달러였다고 합니다. 외부 에셋 없이 메시, 텍스처, 효과음을 전부 코드로 만들었고, 거스트너 파도 6겹 위에서 배가 실제로 부력을 받아 흔들리며 AI 상대와 3바퀴를 돕니다.</p>
+        <p class="take"><span>참고할 점</span> 외부 에셋 없이 메시, 텍스처, 효과음과 파도 위 부력까지 코드로 만들었습니다.</p>
+        <p class="more"><a href="https://www.threads.com/@sliven0722/post/DbetQlvCexq" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@sliven0722/post/DbetQlvCexq" target="_blank" rel="noopener noreferrer"><img src="shots/22-ink-tide.jpg" alt="Vyom, 셀 셰이딩 보트 레이싱 INK TIDE 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="vesperfall">
+      <div class="body">
+        <p class="num">23</p>
+        <h2>Meng To, Vesperfall 스킬 팩</h2>
+        <p class="sub">스레드 · @sliven0722가 공유 · 작성자는 Meng To · 글 2026-07-25</p>
+        <p class="tool">AI 도구 · Codex, Claude Code, Cursor</p>
+        <p class="desc">Three.js 아이소메트릭 액션 RPG Vesperfall을 만들 때 쓴 에이전트 스킬을 공개했습니다. 카메라, 적 AI, 전투, 이펙트, 출시까지 다룹니다.</p>
+        <p class="take"><span>참고할 점</span> 카메라, 적 AI, 전투, 이펙트, 출시까지 담은 에이전트 스킬을 공개한 글입니다.</p>
+        <p class="more"><a href="https://www.threads.com/@sliven0722/post/DbOBKOPCe8X" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@sliven0722/post/DbOBKOPCe8X" target="_blank" rel="noopener noreferrer"><img src="shots/23-vesperfall.jpg" alt="Meng To, Vesperfall 스킬 팩 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="odyssey">
+      <div class="body">
+        <p class="num">24</p>
+        <h2>Crystal Chang, 인터랙티브 오디세이</h2>
+        <p class="sub">스레드 · @crystalchang323 · 글 2026-07-24</p>
+        <p class="tool">AI 도구 · GPT, Codex</p>
+        <p class="desc">14개 섬을 항해하는 오디세이입니다. 엔지니어가 아니며, GPT로 기획과 완료 기준을 쓰고 Codex가 약 8시간 혼자 구현했습니다.</p>
+        <p class="take"><span>참고할 점</span> 기획과 완료 기준은 GPT가 쓰고, 구현은 Codex가 맡았습니다.</p>
+        <p class="more"><a href="https://www.threads.com/@crystalchang323/post/DbKuu7lk7EP" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@crystalchang323/post/DbKuu7lk7EP" target="_blank" rel="noopener noreferrer"><img src="shots/24-odyssey.jpg" alt="Crystal Chang, 인터랙티브 오디세이 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="name-tops">
+      <div class="body">
+        <p class="num">25</p>
+        <h2>장원웨이, 이름으로 싸우는 팽이 게임</h2>
+        <p class="sub">스레드 · @chang404 · 글 2026-06-18 (한국 시간)</p>
+        <p class="tool">AI 도구 · Claude(Claude Artifact로 공개, 4Gamers 보도 기준)</p>
+        <p class="desc">스팀 게임 《문자 게임》 제작자가 이름의 한자 하나하나를 팽이로 바꿔 글자 모양에 따라 무게, 안정성, 공격, 방어가 정해지는 대전 게임을 만들었습니다. 만화가인 여자친구 @shinyan_dungeon이 공유한 글이 하루 만에 조회수 19만을 넘겼습니다.</p>
+        <p class="take"><span>참고할 점</span> 한자 모양이 무게, 안정성, 공격, 방어를 정하는 규칙 하나로 대전 게임이 됩니다.</p>
+        <p class="more"><a href="https://www.threads.com/@chang404/post/DZsSH5Rk2yR" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@chang404/post/DZsSH5Rk2yR" target="_blank" rel="noopener noreferrer"><img src="shots/25-name-tops.jpg" alt="장원웨이, 이름으로 싸우는 팽이 게임 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="rift">
+      <div class="body">
+        <p class="num">26</p>
+        <h2>Rift Salvage, 45분 만의 탑다운 슈팅</h2>
+        <p class="sub">스레드 · @passionplus_ai가 소개 · 시연한 유튜버는 글에 이름 없음 · 글 2026-05-12</p>
+        <p class="tool">AI 도구 · Codex, GPT image gen 2</p>
+        <p class="desc">Plan 모드에서 빌드 성공과 Playwright 시나리오 통과 같은 완료 기준을 먼저 정해 두고 Goals 두 번으로 완성했습니다. 드론, 적, 보스, 배경, UI 에셋 11종도 Codex가 직접 만들었습니다.</p>
+        <p class="take"><span>참고할 점</span> Plan 모드에서 빌드 성공과 Playwright 시나리오 통과를 완료 기준으로 먼저 정했습니다.</p>
+        <p class="more"><a href="https://www.threads.com/@passionplus_ai/post/DYOez1RgWtP" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@passionplus_ai/post/DYOez1RgWtP" target="_blank" rel="noopener noreferrer"><img src="shots/26-rift.jpg" alt="Rift Salvage, 45분 만의 탑다운 슈팅 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="appsintoss">
+      <div class="body">
+        <p class="num">27</p>
+        <h2>디자인 학원 원장님의 첫 게임</h2>
+        <p class="sub">스레드 · @toss.appsintoss가 소개 · 제작자는 @design_prep · 글 2026-05-08 (한국 시간)</p>
+        <p class="tool">AI 도구 · Gemini, GPT, Midjourney, SUNO</p>
+        <p class="desc">비개발자가 &quot;게임이 제일 어려울 것 같아서&quot; 첫 프로젝트로 게임을 골라 주말 저녁마다 만들어 앱인토스에 출시했습니다. 다음 미니앱은 학생용 면접 시뮬레이터였습니다.</p>
+        <p class="take"><span>참고할 점</span> 비개발자도 주말 저녁마다 만들어 첫 게임을 스토어에 올릴 수 있습니다.</p>
+        <p class="more"><a href="https://www.threads.com/@toss.appsintoss/post/DYD_IKDjyMu" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@toss.appsintoss/post/DYD_IKDjyMu" target="_blank" rel="noopener noreferrer"><img src="shots/27-appsintoss.jpg" alt="디자인 학원 원장님의 첫 게임 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="journey">
+      <div class="body">
+        <p class="num">28</p>
+        <h2>서유기 픽셀 게임</h2>
+        <p class="sub">스레드 · @techtalk.ai.tech.web · 글 2026-05-06 (한국 시간)</p>
+        <p class="tool">AI 도구 · Codex, 이미지 생성 에이전트 스킬</p>
+        <p class="desc">Codex로 코드를 쓰면서 같은 대화 안에서 &quot;손오공 공격 애니메이션 만들어 줘&quot; 한 줄로 스프라이트 시트와 맵 그림까지 뽑았습니다. Midjourney에서 만들고 내보내고 이름 바꿔 붙이던 과정을 없앴다고 하며, 과정과 소스를 공개했습니다.</p>
+        <p class="take"><span>참고할 점</span> 같은 대화에서 코드와 스프라이트 시트를 한 줄로 뽑으면 파일을 옮기는 과정이 사라집니다.</p>
+        <p class="more"><a href="https://www.threads.com/@techtalk.ai.tech.web/post/DX-fCWaEUZ4" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot placeholder" href="https://www.threads.com/@techtalk.ai.tech.web/post/DX-fCWaEUZ4" target="_blank" rel="noopener noreferrer"><span>이 글의 화면을 캡처하지 못했습니다.</span><span>원문 열기</span></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="vr-basketball">
+      <div class="body">
+        <p class="num">29</p>
+        <h2>Dilmer, VR/MR 농구 게임</h2>
+        <p class="sub">스레드 · @dilmerv · 글 2026-05-04</p>
+        <p class="tool">AI 도구 · Unity AI Assistant, Claude Agent, Claude Code CLI</p>
+        <p class="desc">Unity 안의 AI 도우미와 외부 Claude Code를 함께 쓰고, Meta XR Simulator로 반복 테스트하며 VR/MR 농구 게임을 만들었습니다.</p>
+        <p class="take"><span>참고할 점</span> 에디터 안 도우미와 바깥 Claude Code를 시뮬레이터 테스트로 함께 돌렸습니다.</p>
+        <p class="more"><a href="https://www.threads.com/@dilmerv/post/DX4aZ5FFAWy" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@dilmerv/post/DX4aZ5FFAWy" target="_blank" rel="noopener noreferrer"><img src="shots/29-vr-basketball.jpg" alt="Dilmer, VR/MR 농구 게임 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="zombie">
+      <div class="body">
+        <p class="num">30</p>
+        <h2>Tack Lin, 30분 만의 좀비 액션 게임</h2>
+        <p class="sub">스레드 · @tack.lin · 글 2026-04-25 (한국 시간)</p>
+        <p class="tool">AI 도구 · Codex, Image 2</p>
+        <p class="desc">요구사항을 두세 번 고치며 약 30분, 한 세션 안에서 압축 없이 좀비 열 마리를 잡으면 Q 스킬이 열리는 액션 게임을 만들었습니다. 그림과 애니메이션도 AI가 직접 만들었다고 합니다.</p>
+        <p class="take"><span>참고할 점</span> 요구사항을 두세 번 고치며 한 세션, 약 30분 안에 압축 없이 끝냈습니다.</p>
+        <p class="more"><a href="https://www.threads.com/@tack.lin/post/DXiMuWkEVZX" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@tack.lin/post/DXiMuWkEVZX" target="_blank" rel="noopener noreferrer"><img src="shots/30-zombie.jpg" alt="Tack Lin, 30분 만의 좀비 액션 게임 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Instagram" id="archiv45">
+      <div class="body">
+        <p class="num">31</p>
+        <h2>Joscha Falck, 역사 수업용 방탈출 Archiv 45</h2>
+        <p class="sub">인스타그램 · @joschafalck · 글 2026-03-10 (한국 시간 3월 11일)</p>
+        <p class="tool">AI 도구 · Claude Code 서브에이전트</p>
+        <p class="desc">교사가 교수 설계, 역사 내용, 퍼즐, 코드, 디자인, 품질 검사를 맡은 서브에이전트 여섯 개로 1945년 베를린 기록 보관소를 푸는 중학생용 브라우저 방탈출 게임을 만들었습니다. 결과를 직접 검토하며 여러 번 고쳤습니다.</p>
+        <p class="take"><span>참고할 점</span> 역할을 나눈 서브에이전트 여섯 개로 만들고, 교사가 결과를 직접 검토했습니다.</p>
+        <p class="more"><a href="https://www.instagram.com/p/DVtiXQsjK7D/" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.instagram.com/p/DVtiXQsjK7D/" target="_blank" rel="noopener noreferrer"><img src="shots/31-archiv45.jpg" alt="Joscha Falck, 역사 수업용 방탈출 Archiv 45 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="retro-pixel">
+      <div class="body">
+        <p class="num">32</p>
+        <h2>Peter Yang, 아이와 만드는 레트로 픽셀 게임</h2>
+        <p class="sub">스레드 · @petergyang · 글 2026-01-22</p>
+        <p class="tool">AI 도구 · Claude Code</p>
+        <p class="desc">일곱 살 아이와 20분 만에 레트로 픽셀 게임을 만드는 튜토리얼입니다. AskUserQuestion으로 기획서를 잡고 GitHub와 Vercel로 배포합니다.</p>
+        <p class="take"><span>참고할 점</span> 기획 질문으로 스펙을 먼저 잡고 GitHub와 Vercel로 배포합니다.</p>
+        <p class="more"><a href="https://www.threads.com/@petergyang/post/DTxxhxhlNzc" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@petergyang/post/DTxxhxhlNzc" target="_blank" rel="noopener noreferrer"><img src="shots/32-retro-pixel.jpg" alt="Peter Yang, 아이와 만드는 레트로 픽셀 게임 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="neogeo">
+      <div class="body">
+        <p class="num">33</p>
+        <h2>Mani, 네오지오 게임 엔진</h2>
+        <p class="sub">스레드 · @manicakes1 · 글 2026-01-02 (한국 시간 1월 3일)</p>
+        <p class="tool">AI 도구 · Claude Code</p>
+        <p class="desc">1990년 아케이드 하드웨어인 네오지오용 게임 엔진을 3일 만에 만들었습니다. 물리, 어셈블리로 짠 Z80 오디오 드라이버, 패럴랙스 스크롤, 에셋 파이프라인까지 들어갔습니다.</p>
+        <p class="take"><span>참고할 점</span> 물리부터 어셈블리 오디오 드라이버까지 넣어 3일 만에 엔진을 만들었습니다.</p>
+        <p class="more"><a href="https://www.threads.com/@manicakes1/post/DTBF2m1Dwop" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@manicakes1/post/DTBF2m1Dwop" target="_blank" rel="noopener noreferrer"><img src="shots/33-neogeo.jpg" alt="Mani, 네오지오 게임 엔진 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="voxel">
+      <div class="body">
+        <p class="num">34</p>
+        <h2>Prompt Case, 서바이버류 복셀 슈팅</h2>
+        <p class="sub">스레드 · @prompt_case · 글 2025-11-19 (한국 시간)</p>
+        <p class="tool">AI 도구 · Gemini 3 Pro(AI Studio)</p>
+        <p class="desc">복셀 적과 파티클, 코인과 경험치, 자동 사격과 무기 업그레이드가 있는 로그라이크를 프롬프트 하나로 두세 번 다시 뽑아 만들었습니다. 한 번에 안 되면 이어서 고치게 할 때 멀쩡한 코드까지 바꿔 버리기 쉽다는 경고를 남겼습니다.</p>
+        <p class="take"><span>참고할 점</span> 한 번에 안 되면 이어서 고치기보다 다시 뽑는 편이 멀쩡한 코드를 지킵니다.</p>
+        <p class="more"><a href="https://www.threads.com/@prompt_case/post/DRO0S9ojRLw" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@prompt_case/post/DRO0S9ojRLw" target="_blank" rel="noopener noreferrer"><img src="shots/34-voxel.jpg" alt="Prompt Case, 서바이버류 복셀 슈팅 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Threads" id="hole-io">
+      <div class="body">
+        <p class="num">35</p>
+        <h2>Prompt Case, 홀아이오풍 3D 웹 게임</h2>
+        <p class="sub">스레드 · @prompt_case · 글 2025-03-03 (한국 시간)</p>
+        <p class="tool">AI 도구 · Claude 3.7 Sonnet</p>
+        <p class="desc">블랙홀이 도시의 나무, 사람, 차, 건물을 삼키며 커지는 3D 웹 게임을 코드를 직접 고치지 않고 몇 번의 대화로 완성했습니다. 플랫폼, 목적, 세부 사항 순으로 쓰는 프롬프트 원문을 함께 공개했습니다.</p>
+        <p class="take"><span>참고할 점</span> 플랫폼, 목적, 세부 사항 순으로 쓰면 코드를 손으로 고치지 않아도 됩니다.</p>
+        <p class="more"><a href="https://www.threads.com/@prompt_case/post/DGvLorfvJL3" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.threads.com/@prompt_case/post/DGvLorfvJL3" target="_blank" rel="noopener noreferrer"><img src="shots/35-hole-io.jpg" alt="Prompt Case, 홀아이오풍 3D 웹 게임 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="Instagram" id="flight">
+      <div class="body">
+        <p class="num">36</p>
+        <h2>Pieter, 혼자 만든 멀티플레이 비행 시뮬레이터</h2>
+        <p class="sub">인스타그램 · @thevarunmayya가 소개 · 제작자는 인디 해커 Pieter · 글 2025-03-02</p>
+        <p class="tool">AI 도구 · Cursor, Grok 3</p>
+        <p class="desc">&quot;고층 빌딩 사이를 나는 브라우저 3D 비행 게임을 만들어 줘&quot;라는 요청으로 몇 시간 만에 처음 만들어 보는 비행 시뮬레이터를 돌아가게 했고, 코드는 거의 전부 AI가 썼습니다.</p>
+        <p class="take"><span>참고할 점</span> 한 문장 요청으로 몇 시간 만에 브라우저 비행 시뮬레이터가 돌아갔습니다.</p>
+        <p class="more"><a href="https://www.instagram.com/thevarunmayya/reel/DGsUFDMhCYX/" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.instagram.com/thevarunmayya/reel/DGsUFDMhCYX/" target="_blank" rel="noopener noreferrer"><img src="shots/36-flight.jpg" alt="Pieter, 혼자 만든 멀티플레이 비행 시뮬레이터 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+  </div>
+  <footer>
+    <p>평일 아침마다 새 사례만 이 페이지에 더합니다. 다른 사람의 작업을 소개한 글은 소개한 계정과 원작자를 함께 적었습니다.</p>
+    <p>기간, 비용, 조회수, 처음이라는 표현은 각 글에서 게시자가 밝힌 말입니다.</p>
+  </footer>
 </main>
+<script>
+(function () {
+  var buttons = document.querySelectorAll("[data-filter]");
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".case"));
+  var search = document.querySelector(".search");
+  var platform = "all";
+  function apply() {
+    var q = (search && search.value || "").trim().toLowerCase();
+    cards.forEach(function (card) {
+      var okPlatform = platform === "all" || card.getAttribute("data-platform") === platform;
+      var okText = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
+      card.hidden = !(okPlatform && okText);
+    });
+  }
+  buttons.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      platform = btn.getAttribute("data-filter");
+      buttons.forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+      apply();
+    });
+  });
+  if (search) search.addEventListener("input", apply);
+})();
+</script>
 </body>
 </html>
