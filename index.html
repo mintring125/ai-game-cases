@@ -87,7 +87,7 @@
   <header>
     <h1>AI 게임 제작 사례집</h1>
     <p class="intro">인스타그램, 스레드, X의 공개 글에서 확인한 AI 게임 제작 사례입니다. 로그인해야 보이는 글은 넣지 않고, 최근 글부터 정렬했습니다.</p>
-    <p class="meta">마지막 갱신 2026-10-09 · 36건 · 스레드 23 · 인스타그램 4 · X 9</p>
+    <p class="meta">마지막 갱신 2026-10-09 · 42건 · 스레드 23 · 인스타그램 5 · X 14</p>
   </header>
   <div class="tools">
     <button type="button" data-filter="all" aria-pressed="true">전체</button>
@@ -98,9 +98,74 @@
   </div>
   <div id="cases">
 
-    <article class="case" data-platform="X" id="memento">
+    <article class="case" data-platform="X" id="paper-throw">
       <div class="body">
         <p class="num">01</p>
+        <h2>Shaivy Bhatia, 손동작 Paper Toss 웹게임</h2>
+        <p class="sub">X · @ShaivyBhatia · 글 2026-10-09 (한국 시간)</p>
+        <p class="tool">AI 도구 · Claude Code, MediaPipe</p>
+        <p class="desc">웹캠으로 손을 집어 구기고 쓰레기통에 던지는 Paper Toss 스타일 브라우저 게임을 Claude Code와 MediaPipe로 만들었습니다. 프롬프트를 여러 번 다듬어 제스처 인식과 점수 플레이를 붙였고, GitHub Pages에 공개해 바로 플레이할 수 있습니다.</p>
+        <p class="take"><span>참고할 점</span> 웹캠 제스처 게임은 Claude Code로 로직을 짜고 MediaPipe로 손 추적을 붙이면 브라우저만으로도 완성할 수 있습니다.</p>
+        <p class="more"><a href="https://x.com/ShaivyBhatia/status/2108348791959281670" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://x.com/ShaivyBhatia/status/2108348791959281670" target="_blank" rel="noopener noreferrer"><img src="shots/40-paper-throw.jpg" alt="Shaivy Bhatia, 손동작 Paper Toss 웹게임 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="X" id="llama-roguelike">
+      <div class="body">
+        <p class="num">02</p>
+        <h2>Alexander OV, Llama Roguelike</h2>
+        <p class="sub">X · @AlexanderO73639 · 글 2026-10-09 (한국 시간)</p>
+        <p class="tool">AI 도구 · Claude Code, Godot</p>
+        <p class="desc">HackTheAndes용 안데스풍 배낭 로그라이크입니다. 아이템 200개 이상을 정렬·연쇄 발동해 피해를 키우는 구조로, Godot과 Claude Code로 만들었고 itch.io에 무료 WIP를 올렸습니다.</p>
+        <p class="take"><span>참고할 점</span> 해커톤용 로그라이크도 Godot + Claude Code로 itch.io 플레이 가능한 WIP까지 바로 올릴 수 있습니다.</p>
+        <p class="more"><a href="https://x.com/AlexanderO73639/status/2108345937550544979" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://x.com/AlexanderO73639/status/2108345937550544979" target="_blank" rel="noopener noreferrer"><img src="shots/41-llama-roguelike.jpg" alt="Alexander OV, Llama Roguelike 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="X" id="cowduction">
+      <div class="body">
+        <p class="num">03</p>
+        <h2>Guibson Valerio, Cowduction</h2>
+        <p class="sub">X · @guibsonvg · 글 2026-10-09 (한국 시간)</p>
+        <p class="tool">AI 도구 · Codex, GPT-6.1 Sol, GPT-6 Astra</p>
+        <p class="desc">소가 UFO를 조종해 외계인을 납치하는 아이디어를 게임 Cowduction으로 출시했습니다. OpenAI Codex와 GPT-6.1 Sol, GPT-6 Astra로 만들었고 chatgpt.site에 플레이 링크를 공개했습니다.</p>
+        <p class="take"><span>참고할 점</span> 한 줄 컨셉을 Codex와 GPT-6 계열로 바로 플레이 가능한 웹 게임으로 출시할 수 있습니다.</p>
+        <p class="more"><a href="https://x.com/guibsonvg/status/2108327468683964824" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://x.com/guibsonvg/status/2108327468683964824" target="_blank" rel="noopener noreferrer"><img src="shots/39-cowduction.jpg" alt="Guibson Valerio, Cowduction 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="X" id="sims-clone">
+      <div class="body">
+        <p class="num">04</p>
+        <h2>k4ditano, Sims 1풍 아이소메트릭 인생 시뮬</h2>
+        <p class="sub">X · @k4ditano · 글 2026-10-09 (한국 시간)</p>
+        <p class="tool">AI 도구 · Claude Opus 5.5, Claude Code, Godot 4, Blender(헤드리스 MCP)</p>
+        <p class="desc">여자친구가 Sims 1을 좋아해서 Claude Opus 5.5에게 Godot 아이소메트릭 픽셀아트 인생 시뮬을 처음부터 만들게 했습니다. 코드와 스프라이트를 전부 AI가 썼고, Claude Code가 MCP로 Godot 4와 헤드리스 Blender를 조종해 가구 160개·집 타일 56장을 스크립트로 렌더·양자화했습니다. 욕구·자율 AI·직업·청구서·이웃 관계까지 넣었고, 헤드리스로 며칠을 시뮬해 AI 행동을 튜닝했습니다.</p>
+        <p class="take"><span>참고할 점</span> 엔진(MCP)·에셋(Blender 스크립트)·행동(헤드리스 시뮬 로그)을 한 에이전트 파이프라인으로 묶으면 아티스트 없이도 Sims급 프로토타입을 만들 수 있습니다.</p>
+        <p class="more"><a href="https://x.com/k4ditano/status/2108295712324866451" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://x.com/k4ditano/status/2108295712324866451" target="_blank" rel="noopener noreferrer"><img src="shots/37-sims.jpg" alt="k4ditano, Sims 1풍 아이소메트릭 인생 시뮬 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="X" id="leaf">
+      <div class="body">
+        <p class="num">05</p>
+        <h2>Jeffrey_art, LEAF</h2>
+        <p class="sub">X · @Wang1xu · Jeffrey_art · 글 2026-10-08 (한국 시간)</p>
+        <p class="tool">AI 도구 · Codex, Godot, Blender, TripoAI</p>
+        <p class="desc">개가 낙엽을 쫓던 기억에서 출발한 첫 인디 게임 LEAF를 20일 만에 만들었습니다. 사계절을 거니는 조용한 여정으로, Godot + Codex + Blender + TripoAI를 썼고 워크스루 영상을 공개했습니다.</p>
+        <p class="take"><span>참고할 점</span> Codex로 로직을 두고 Blender·TripoAI로 3D를 보강하면 20일 만에 사계절 탐험 인디 게임까지 갈 수 있습니다.</p>
+        <p class="more"><a href="https://x.com/Wang1xu/status/2108149666554736881" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://x.com/Wang1xu/status/2108149666554736881" target="_blank" rel="noopener noreferrer"><img src="shots/38-leaf.jpg" alt="Jeffrey_art, LEAF 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
+    <article class="case" data-platform="X" id="memento">
+      <div class="body">
+        <p class="num">06</p>
         <h2>6년 묵힌 추리게임 기획 &#x27;메멘토 코드;&#x27; 프롤로그를 클로드로 웹게임화</h2>
         <p class="sub">X · @letsgotoiletnow · 좌변기 · 글 2026-10-01</p>
         <p class="tool">AI 도구 · Claude (무료 플랜), 직접 그린 일러스트</p>
@@ -113,7 +178,7 @@
 
     <article class="case" data-platform="Threads" id="vincent-dice">
       <div class="body">
-        <p class="num">02</p>
+        <p class="num">07</p>
         <h2>Vincent Chiang, Project DICE</h2>
         <p class="sub">스레드 · @vincent10061006 · 글 대략 2026-09-28, 2026-09-30</p>
         <p class="tool">AI 도구 · GPT-6 Astra</p>
@@ -126,7 +191,7 @@
 
     <article class="case" data-platform="Threads" id="taipei-gta">
       <div class="body">
-        <p class="num">03</p>
+        <p class="num">08</p>
         <h2>AICodeWithMe, 타이베이판 GTA</h2>
         <p class="sub">스레드 · @aicodewithme · 글 2026-09-28 (한국 시간)</p>
         <p class="tool">AI 도구 · 글에는 도구명 없음, 보도로는 자체 플랫폼 AICodeWith에서 DeepSeek, Qwen, Kimi, GLM 등 30개 넘는 모델</p>
@@ -139,7 +204,7 @@
 
     <article class="case" data-platform="X" id="drone">
       <div class="body">
-        <p class="num">04</p>
+        <p class="num">09</p>
         <h2>&#x27;드론키우기&#x27; 개발자의 AI 게임 제작 팁: 세션 5개와 교차검증 팀장</h2>
         <p class="sub">X · @CryptoCryingCat · 우는고양이 · 글 2026-09-28</p>
         <p class="tool">AI 도구 · Codex, GPT 이미지 생성, Claude (비교 대상)</p>
@@ -152,7 +217,7 @@
 
     <article class="case" data-platform="Threads" id="wuxia">
       <div class="body">
-        <p class="num">05</p>
+        <p class="num">10</p>
         <h2>0xFunky, 수묵화풍 무협 RPG</h2>
         <p class="sub">스레드 · @0x0funky · 글 2026-09-17 (한국 시간)</p>
         <p class="tool">AI 도구 · GPT Pro, Grok Build, Google Lyria API</p>
@@ -165,7 +230,7 @@
 
     <article class="case" data-platform="X" id="stefan-gta">
       <div class="body">
-        <p class="num">06</p>
+        <p class="num">11</p>
         <h2>Codex가 언리얼5를 조종해 만든 GTA풍 도시 게임</h2>
         <p class="sub">X · @Stefan_3D_AI · 글 2026-09-16</p>
         <p class="tool">AI 도구 · GPT-6, Codex, Unreal Engine 5, Higgsfield, Tripo, Meshy, Seedance, Seed Audio, fal</p>
@@ -178,7 +243,7 @@
 
     <article class="case" data-platform="Instagram" id="let-him-cook">
       <div class="body">
-        <p class="num">07</p>
+        <p class="num">12</p>
         <h2>Ersh, 요리 인터랙티브 게임 Let Him Cook</h2>
         <p class="sub">인스타그램 · @ersharium · 글 2026-09-16</p>
         <p class="tool">AI 도구 · Replit Agent</p>
@@ -191,7 +256,7 @@
 
     <article class="case" data-platform="Threads" id="hd2d">
       <div class="body">
-        <p class="num">08</p>
+        <p class="num">13</p>
         <h2>0xFunky, 반나절 만의 HD-2D RPG</h2>
         <p class="sub">스레드 · @0x0funky · 글 2026-09-14 (한국 시간)</p>
         <p class="tool">AI 도구 · GPT Image 2.5, Grok Build(img2video), Three.js, Google Lyria</p>
@@ -204,7 +269,7 @@
 
     <article class="case" data-platform="Threads" id="one-prompt">
       <div class="body">
-        <p class="num">09</p>
+        <p class="num">14</p>
         <h2>프롬프트 세 문단으로 만든 3D 게임</h2>
         <p class="sub">스레드 · @gpt_haterz가 소개 · 원작자는 글에 이름 없음 · 글 2026-09-08</p>
         <p class="tool">AI 도구 · Claude Code</p>
@@ -217,7 +282,7 @@
 
     <article class="case" data-platform="X" id="robo-tennis">
       <div class="body">
-        <p class="num">10</p>
+        <p class="num">15</p>
         <h2>여러 AI 도구로 만든 유니티 로보 테니스 (웹에서 플레이 가능)</h2>
         <p class="sub">X · @chongdashu · 글 2026-09-03</p>
         <p class="tool">AI 도구 · Fable 5.1, GPT 5.6, Grok 4.6, Unity CLI, Blender MCP, Meshy, ElevenLabs</p>
@@ -230,7 +295,7 @@
 
     <article class="case" data-platform="X" id="fishing">
       <div class="body">
-        <p class="num">11</p>
+        <p class="num">16</p>
         <h2>Claude Code와 Godot로 4주 만에 키운 3D 낚시 게임</h2>
         <p class="sub">X · @hakimieiqbal · 글 2026-08-25</p>
         <p class="tool">AI 도구 · Claude Code, Godot, Blender MCP, Tripo 3D, ChatGPT 이미지 생성</p>
@@ -243,7 +308,7 @@
 
     <article class="case" data-platform="X" id="codex-tools">
       <div class="body">
-        <p class="num">12</p>
+        <p class="num">17</p>
         <h2>Codex를 게임 엔진처럼 쓰는 법: 맞춤 툴을 핀 고정 스레드로</h2>
         <p class="sub">X · @NicolasZu · 글 2026-08-24</p>
         <p class="tool">AI 도구 · Codex, Codex worktree, /yeet skill, Linear</p>
@@ -256,7 +321,7 @@
 
     <article class="case" data-platform="Threads" id="raccoon">
       <div class="body">
-        <p class="num">13</p>
+        <p class="num">18</p>
         <h2>Simon Willison, 라쿤 하이스트 재현</h2>
         <p class="sub">스레드 · @soundslikeclickclack이 정리 · 원 실험은 Simon Willison · 글 2026-08-18</p>
         <p class="tool">AI 도구 · Claude Fable 5(Claude Code), GPT-5.6 Sol Ultra(Codex)</p>
@@ -269,7 +334,7 @@
 
     <article class="case" data-platform="Instagram" id="city-builder">
       <div class="body">
-        <p class="num">14</p>
+        <p class="num">19</p>
         <h2>9개월 차이로 다시 만든 도시 건설 게임</h2>
         <p class="sub">인스타그램 · @girsta가 소개 · 개발자는 글에 이름 없음 · 글 2026-08-16</p>
         <p class="tool">AI 도구 · Cursor Composer 1, Grok 4.6</p>
@@ -282,7 +347,7 @@
 
     <article class="case" data-platform="X" id="kaiju">
       <div class="body">
-        <p class="num">15</p>
+        <p class="num">20</p>
         <h2>언리얼을 버리고 AI로 짠 자체 엔진 Kaiju, 단종된 Firefall 이식</h2>
         <p class="sub">X · @Grummz · 글 2026-08-16 (한국 시간, 미국 시간 8월 15일)</p>
         <p class="tool">AI 도구 · Grok, Codex, Claude, Jolt Physics, Ozz Animation, Blender 플러그인</p>
@@ -295,7 +360,7 @@
 
     <article class="case" data-platform="Threads" id="doguri">
       <div class="body">
-        <p class="num">16</p>
+        <p class="num">21</p>
         <h2>크레이지아케이드 종료 소식에 Codex로 만든 오마주 &#x27;도구리 물풍선&#x27;</h2>
         <p class="sub">스레드 · @cowboy76 · 글 2026-08-15 (고정 게시물, 페이지 표시 08/15/26)</p>
         <p class="tool">AI 도구 · Codex</p>
@@ -308,7 +373,7 @@
 
     <article class="case" data-platform="Threads" id="lolomouse">
       <div class="body">
-        <p class="num">17</p>
+        <p class="num">22</p>
         <h2>Lolomouse, 삼국지 카드 로그라이크</h2>
         <p class="sub">스레드 · @lolomousegame · 글 2026-08-13</p>
         <p class="tool">AI 도구 · Codex</p>
@@ -321,7 +386,7 @@
 
     <article class="case" data-platform="Threads" id="text23d">
       <div class="body">
-        <p class="num">18</p>
+        <p class="num">23</p>
         <h2>Andrew.Kim, Text23d</h2>
         <p class="sub">스레드 · @andrew_kim_ai · 글 2026-08-11</p>
         <p class="tool">AI 도구 · LLM(모델명은 글에 없음)</p>
@@ -334,7 +399,7 @@
 
     <article class="case" data-platform="X" id="space-punk">
       <div class="body">
-        <p class="num">19</p>
+        <p class="num">24</p>
         <h2>Grok Build로 만든 스노보드 게임 &#x27;Space Punk&#x27; Steam 얼리 액세스</h2>
         <p class="sub">X · @ShyneB0X · 글 2026-08-09 (한국 시간, 미국 시간 8월 8일)</p>
         <p class="tool">AI 도구 · Grok Build</p>
@@ -347,7 +412,7 @@
 
     <article class="case" data-platform="Threads" id="minigolf">
       <div class="body">
-        <p class="num">20</p>
+        <p class="num">25</p>
         <h2>Dilmer, Unity CLI로 만든 미니 골프</h2>
         <p class="sub">스레드 · @dilmerv · 글 2026-08-06 (한국 시간)</p>
         <p class="tool">AI 도구 · Codex, Unity CLI</p>
@@ -360,7 +425,7 @@
 
     <article class="case" data-platform="X" id="mafia">
       <div class="body">
-        <p class="num">21</p>
+        <p class="num">26</p>
         <h2>1인 개발 어몽어스류 마피아 게임, 분야별 AI 도구 구성 공개</h2>
         <p class="sub">X · @building_KR · xPark · 글 2026-08-05</p>
         <p class="tool">AI 도구 · Claude Opus 5 (Max), Unreal Engine, Fijam, Hermes, MiniMax M3, 이미지 생성 모델, pixel3d local, Blender, MiniMax H3</p>
@@ -373,7 +438,7 @@
 
     <article class="case" data-platform="Threads" id="ink-tide">
       <div class="body">
-        <p class="num">22</p>
+        <p class="num">27</p>
         <h2>Vyom, 셀 셰이딩 보트 레이싱 INK TIDE</h2>
         <p class="sub">스레드 · @sliven0722가 소개 · 제작자는 Vyom · 글 2026-08-01 (한국 시간)</p>
         <p class="tool">AI 도구 · Claude Opus 5</p>
@@ -384,9 +449,22 @@
       <a class="shot" href="https://www.threads.com/@sliven0722/post/DbetQlvCexq" target="_blank" rel="noopener noreferrer"><img src="shots/22-ink-tide.jpg" alt="Vyom, 셀 셰이딩 보트 레이싱 INK TIDE 게시 화면" loading="lazy" width="430" height="720"></a>
     </article>
 
+    <article class="case" data-platform="Instagram" id="aerolith">
+      <div class="body">
+        <p class="num">28</p>
+        <h2>Sourany P., AEROLITH: The Singing Atoll</h2>
+        <p class="sub">인스타그램 · @sou.design · 글 2026-07-29</p>
+        <p class="tool">AI 도구 · Claude Opus 5, Three.js, WebGL</p>
+        <p class="desc">프롬프트 하나로 Claude Opus 5에게 플레이 가능한 3D 게임을 한 시간 만에 만들게 했습니다. 수동 모델링과 엔진 세팅 없이 Three.js·WebGL 코드만으로 물·섬·UI가 나왔고, 유튜브에 프롬프트와 워크플로를 공개했습니다.</p>
+        <p class="take"><span>참고할 점</span> 긴 단일 프롬프트와 Three.js만으로도 한 시간 안에 물 표현이 들어간 3D 탐험 프로토타입이 나옵니다.</p>
+        <p class="more"><a href="https://www.instagram.com/sou.design/reel/DbYb8axs6uZ/" target="_blank" rel="noopener noreferrer">원문 보기</a></p>
+      </div>
+      <a class="shot" href="https://www.instagram.com/sou.design/reel/DbYb8axs6uZ/" target="_blank" rel="noopener noreferrer"><img src="shots/42-opus-3d.jpg" alt="Sourany P., AEROLITH: The Singing Atoll 게시 화면" loading="lazy" width="430" height="720"></a>
+    </article>
+
     <article class="case" data-platform="Threads" id="vesperfall">
       <div class="body">
-        <p class="num">23</p>
+        <p class="num">29</p>
         <h2>Meng To, Vesperfall 스킬 팩</h2>
         <p class="sub">스레드 · @sliven0722가 공유 · 작성자는 Meng To · 글 2026-07-25</p>
         <p class="tool">AI 도구 · Codex, Claude Code, Cursor</p>
@@ -399,7 +477,7 @@
 
     <article class="case" data-platform="Threads" id="odyssey">
       <div class="body">
-        <p class="num">24</p>
+        <p class="num">30</p>
         <h2>Crystal Chang, 인터랙티브 오디세이</h2>
         <p class="sub">스레드 · @crystalchang323 · 글 2026-07-24</p>
         <p class="tool">AI 도구 · GPT, Codex</p>
@@ -412,7 +490,7 @@
 
     <article class="case" data-platform="Threads" id="name-tops">
       <div class="body">
-        <p class="num">25</p>
+        <p class="num">31</p>
         <h2>장원웨이, 이름으로 싸우는 팽이 게임</h2>
         <p class="sub">스레드 · @chang404 · 글 2026-06-18 (한국 시간)</p>
         <p class="tool">AI 도구 · Claude(Claude Artifact로 공개, 4Gamers 보도 기준)</p>
@@ -425,7 +503,7 @@
 
     <article class="case" data-platform="Threads" id="rift">
       <div class="body">
-        <p class="num">26</p>
+        <p class="num">32</p>
         <h2>Rift Salvage, 45분 만의 탑다운 슈팅</h2>
         <p class="sub">스레드 · @passionplus_ai가 소개 · 시연한 유튜버는 글에 이름 없음 · 글 2026-05-12</p>
         <p class="tool">AI 도구 · Codex, GPT image gen 2</p>
@@ -438,7 +516,7 @@
 
     <article class="case" data-platform="Threads" id="appsintoss">
       <div class="body">
-        <p class="num">27</p>
+        <p class="num">33</p>
         <h2>디자인 학원 원장님의 첫 게임</h2>
         <p class="sub">스레드 · @toss.appsintoss가 소개 · 제작자는 @design_prep · 글 2026-05-08 (한국 시간)</p>
         <p class="tool">AI 도구 · Gemini, GPT, Midjourney, SUNO</p>
@@ -451,7 +529,7 @@
 
     <article class="case" data-platform="Threads" id="journey">
       <div class="body">
-        <p class="num">28</p>
+        <p class="num">34</p>
         <h2>서유기 픽셀 게임</h2>
         <p class="sub">스레드 · @techtalk.ai.tech.web · 글 2026-05-06 (한국 시간)</p>
         <p class="tool">AI 도구 · Codex, 이미지 생성 에이전트 스킬</p>
@@ -464,7 +542,7 @@
 
     <article class="case" data-platform="Threads" id="vr-basketball">
       <div class="body">
-        <p class="num">29</p>
+        <p class="num">35</p>
         <h2>Dilmer, VR/MR 농구 게임</h2>
         <p class="sub">스레드 · @dilmerv · 글 2026-05-04</p>
         <p class="tool">AI 도구 · Unity AI Assistant, Claude Agent, Claude Code CLI</p>
@@ -477,7 +555,7 @@
 
     <article class="case" data-platform="Threads" id="zombie">
       <div class="body">
-        <p class="num">30</p>
+        <p class="num">36</p>
         <h2>Tack Lin, 30분 만의 좀비 액션 게임</h2>
         <p class="sub">스레드 · @tack.lin · 글 2026-04-25 (한국 시간)</p>
         <p class="tool">AI 도구 · Codex, Image 2</p>
@@ -490,7 +568,7 @@
 
     <article class="case" data-platform="Instagram" id="archiv45">
       <div class="body">
-        <p class="num">31</p>
+        <p class="num">37</p>
         <h2>Joscha Falck, 역사 수업용 방탈출 Archiv 45</h2>
         <p class="sub">인스타그램 · @joschafalck · 글 2026-03-10 (한국 시간 3월 11일)</p>
         <p class="tool">AI 도구 · Claude Code 서브에이전트</p>
@@ -503,7 +581,7 @@
 
     <article class="case" data-platform="Threads" id="retro-pixel">
       <div class="body">
-        <p class="num">32</p>
+        <p class="num">38</p>
         <h2>Peter Yang, 아이와 만드는 레트로 픽셀 게임</h2>
         <p class="sub">스레드 · @petergyang · 글 2026-01-22</p>
         <p class="tool">AI 도구 · Claude Code</p>
@@ -516,7 +594,7 @@
 
     <article class="case" data-platform="Threads" id="neogeo">
       <div class="body">
-        <p class="num">33</p>
+        <p class="num">39</p>
         <h2>Mani, 네오지오 게임 엔진</h2>
         <p class="sub">스레드 · @manicakes1 · 글 2026-01-02 (한국 시간 1월 3일)</p>
         <p class="tool">AI 도구 · Claude Code</p>
@@ -529,7 +607,7 @@
 
     <article class="case" data-platform="Threads" id="voxel">
       <div class="body">
-        <p class="num">34</p>
+        <p class="num">40</p>
         <h2>Prompt Case, 서바이버류 복셀 슈팅</h2>
         <p class="sub">스레드 · @prompt_case · 글 2025-11-19 (한국 시간)</p>
         <p class="tool">AI 도구 · Gemini 3 Pro(AI Studio)</p>
@@ -542,7 +620,7 @@
 
     <article class="case" data-platform="Threads" id="hole-io">
       <div class="body">
-        <p class="num">35</p>
+        <p class="num">41</p>
         <h2>Prompt Case, 홀아이오풍 3D 웹 게임</h2>
         <p class="sub">스레드 · @prompt_case · 글 2025-03-03 (한국 시간)</p>
         <p class="tool">AI 도구 · Claude 3.7 Sonnet</p>
@@ -555,7 +633,7 @@
 
     <article class="case" data-platform="Instagram" id="flight">
       <div class="body">
-        <p class="num">36</p>
+        <p class="num">42</p>
         <h2>Pieter, 혼자 만든 멀티플레이 비행 시뮬레이터</h2>
         <p class="sub">인스타그램 · @thevarunmayya가 소개 · 제작자는 인디 해커 Pieter · 글 2025-03-02</p>
         <p class="tool">AI 도구 · Cursor, Grok 3</p>
