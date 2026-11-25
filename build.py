@@ -24,7 +24,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 LABEL = {"Threads": "스레드", "Instagram": "인스타그램", "X": "X"}
-UPDATED = "2026-11-25"
+UPDATED = "2026-11-26"
 
 
 def esc(value: object) -> str:
